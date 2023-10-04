@@ -1,0 +1,8 @@
+{
+	"files.associations": {
+		"mlx.h": "c",
+		"mlx_int.h": "c",
+		"stdbool.h": "c",
+		"random": "c"
+	}
+}
