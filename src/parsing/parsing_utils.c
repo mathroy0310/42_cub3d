@@ -6,17 +6,21 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 18:12:41 by maroy             #+#    #+#             */
-/*   Updated: 2023/10/03 20:16:49 by maroy            ###   ########.fr       */
+/*   Updated: 2023/10/09 03:16:30 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-static inline bool	ready_to_parse_map(t_cub_file *cub)
+static bool ready_to_parse_map(t_cub_file *cub)
 {
-	return (cub->no_tex_path && cub->so_tex_path && cub->we_tex_path && cub->ea_tex_path
-			&& cub->color_f.r >= 0 && cub->color_f.g >= 0 && cub->color_f.b >= 0
-		&& cub->color_c.r >= 0 && cub->color_c.g >= 0 && cub->color_c.b >= 0);
+    bool textures_ready;
+    bool colors_ready;
+	
+	textures_ready = (cub->no_tex_path && cub->so_tex_path && cub->we_tex_path && cub->ea_tex_path);
+	colors_ready = (cub->color_f.r >= 0 && cub->color_f.g >= 0 && cub->color_f.b >= 0 &&
+                         cub->color_c.r >= 0 && cub->color_c.g >= 0 && cub->color_c.b >= 0);
+    return (textures_ready && colors_ready);
 }
 
 char	*parse_cub_line_map(t_cub_file *cub, char *line)
@@ -44,9 +48,9 @@ char	*parse_cub_line_map(t_cub_file *cub, char *line)
 	return (NULL);
 }
 
-static inline char	*apply_colors(t_cub_file *cub, char *cat, char **colors_tab)
+static char	*apply_colors(t_cub_file *cub, char *cat, char **colors_tab)
 {
-	t_vectu3 *color;
+	t_vect3 *color;
 
 	if ((*cat == 'F' && cub->color_f.r >= 0) || (*cat == 'C' && cub->color_c.r >= 0))
 		return (PARSER_COLOR_ONCE);
@@ -56,9 +60,7 @@ static inline char	*apply_colors(t_cub_file *cub, char *cat, char **colors_tab)
 	color->r = ft_atoi(colors_tab[0]);
 	color->g = ft_atoi(colors_tab[1]);
 	color->b = ft_atoi(colors_tab[2]);
-	printf("color.r = %d\n", color->r);
-	printf("color.g = %d\n", color->g);
-	printf("color.b = %d\n", color->b);
+	debug_print_colors(cat, *color);
 	ft_free_tab(colors_tab);
 	if (!ft_inrange(color->r, 0, 256) || !ft_inrange(color->g, 0, 256)
 		|| !ft_inrange(color->b, 0, 256))
@@ -117,8 +119,5 @@ char	*parse_cub_line_color(t_cub_file *cub, char **tab)
 	colors = ft_split(tab[1], ',');
 	if (!colors)
 		return (MALLOC_COLLINE);
-	printf("colors[0] = %s\n", colors[0]);
-	printf("colors[1] = %s\n", colors[1]);
-	printf("colors[2] = %s\n", colors[2]);
 	return (apply_colors(cub, tab[0], colors));
 }

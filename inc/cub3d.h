@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:15:26 by maroy             #+#    #+#             */
-/*   Updated: 2023/10/03 19:14:46 by maroy            ###   ########.fr       */
+/*   Updated: 2023/10/09 03:15:12 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,25 @@ typedef enum e_direction
 	NONE
 }	t_direction;
 
-void	print_error(char *file_error);
+typedef struct s_game
+{
+	char		**map;
+	int			map_w;
+	int			map_h;
+	void		*mlx_ptr;
+	void		*mlx_win;
+}	t_game;
 
+char	*init_game(t_cub_file *cub, t_game *game);
+bool	mid_row_valid(char **map, int row, char *dir);
+char	**make_char_map(t_list *raw_map);
+int		max_list_str_len(t_list *lst);
+
+void	debug_print_msg(char *msg);
+void	debug_print_map(t_game *game);
+void	debug_print_colors(char *cat, t_vect3 color);
+
+void	print_error(char *filename, char *error_msg);
+void	print_error_then_exit(char *filename, char *error_msg);
 
 #endif

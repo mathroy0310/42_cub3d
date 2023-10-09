@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:28:24 by maroy             #+#    #+#             */
-/*   Updated: 2023/10/03 20:11:36 by maroy            ###   ########.fr       */
+/*   Updated: 2023/10/09 02:03:47 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,18 @@ bool is_str_in_tab(char *str, char **tab)
 	return (false);
 }
 
+bool is_charset_in_str(char *str, char *charset)
+{
+	if (!str || !charset)
+		return (false);
+	if (*charset == 0)
+		return (true);
+	while (*charset)
+		if (ft_strchr(str, *(charset++)))
+			return (true);
+	return (false);
+}
+
 static char *parse_cub_line(t_cub_file *cub, char *line)
 {
 	char **tab;
@@ -74,39 +86,42 @@ static char *parse_cub_line(t_cub_file *cub, char *line)
 	else
 		error = PARSER_LINE_FMT;
 	if (error)
-		//free_cub_data(cub);
+		free_cub_data(cub);
 	ft_free_tab(tab);
 	return (error);
 } 
 
-char	*parse_cub_file(char *filename)
+
+
+char	*parse_cub_file(t_cub_file *cub_file, int fd)
 {
-	int fd;
 	char *line;
 	char *error;
-	t_cub_file *cub_file;
 	
-	cub_file = malloc(sizeof(t_cub_file));
-	fd = open(filename, O_RDONLY);
-	init_cub_file_data(cub_file);
-	int i = 0;
 	while (true)
 	{
 		line = get_next_line(fd);	
 		if (line == NULL)
 			break;
 		error = parse_cub_line(cub_file, line);
-		//free(line);
-		i++;
+		free(line);
+		if (error)
+			return (error);
 	}
-	printf("NO: %s\n", cub_file->no_tex_path);
-	printf("SO: %s\n", cub_file->so_tex_path);
-	printf("WE: %s\n", cub_file->we_tex_path);
-	printf("EA: %s\n", cub_file->ea_tex_path);
-	printf("F: %d, %d, %d\n", cub_file->color_f.r, cub_file->color_f.g, cub_file->color_f.b);
-	printf("C: %d, %d, %d\n", cub_file->color_c.r, cub_file->color_c.g, cub_file->color_c.b);
-	printf("MAP:\n");
-	//free(cub_file);
+	if (!check_file_ext(cub_file->no_tex_path, ".xpm") || \
+		!check_file_ext(cub_file->so_tex_path, ".xpm") || \
+		!check_file_ext(cub_file->we_tex_path, ".xpm") || \
+		!check_file_ext(cub_file->ea_tex_path, ".xpm"))
+		error = PARSER_XPM_EXT;
+	else if (!can_read_file(cub_file->no_tex_path) || \
+			 !can_read_file(cub_file->so_tex_path) || \
+			 !can_read_file(cub_file->we_tex_path) || \
+			 !can_read_file(cub_file->ea_tex_path))
+		error = PARSER_XPM_OPN;
+	if (!error)
+		error = check_cub_map(make_char_map(cub_file->raw_map));
+	if (error)
+		free_cub_data(cub_file);
 	return (error);
 }
 

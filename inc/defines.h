@@ -6,16 +6,20 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:19:55 by maroy             #+#    #+#             */
-/*   Updated: 2023/10/03 18:10:58 by maroy            ###   ########.fr       */
+/*   Updated: 2023/10/09 02:56:40 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEFINES_H
 # define DEFINES_H
 
+#ifndef DEBUG_MODE
+# define DEBUG_MODE 0
+#endif
+
 /*	==== GLOBAL ==== */
 
-# define WINDOW_TITLE "cub3D"
+# define WIN_TITLE "cub3D"
 # define WIN_X		900
 # define WIN_Y		700
 
@@ -45,6 +49,9 @@
 
 /*	==== PARSER ERRORS ==== */
 
+# define PARSER_ARG_NB			"Wrong number of arguments"
+# define PARSER_ARG_EXT			"Wrong file extension"
+# define PARSER_ARG_OPEN		"Cannot open file or is empty"
 # define PARSER_XPM_EXT			"All texture files must have XPM extension"
 # define PARSER_XPM_OPN			"Cannot open one of the texture files"
 # define PARSER_LINE_FMT		"A line is not correctly formatted"
@@ -66,7 +73,16 @@
 # define MALLOC_CHARMAP	"Malloc error while creating map in game init"
 # define MALLOC_TEXTURE	"Malloc error while initializing wall textures"
 
-/*  ==== Color Codes for users  ==== */
+/*	==== CUBMAP MESSAGES ==== */
+# define CUBMAP_NULL	"Map is NULL"
+# define CUBMAP_ROW_INV	"A map row is not valid"
+# define CUBMAP_DEF_DIR	"No default direction found"
+
+/*	==== GAME AND GRAPHICS MESSAGES ==== */
+# define GRAPHICS_INIT			"MinilibX initialization failed"
+# define WINDOW_INIT			"Cannot create new window"
+
+/*  ==== COLOR CODES  ==== */
 
 # define ANSI_COLOR_RESET "\x1b[0m"
 # define ANSI_COLOR_BLACK "\x1b[30m"

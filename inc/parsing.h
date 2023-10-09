@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:38:49 by maroy             #+#    #+#             */
-/*   Updated: 2023/10/03 19:44:44 by maroy            ###   ########.fr       */
+/*   Updated: 2023/10/09 02:04:23 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@
 #include<stdint.h>
 # include "../libs/libft/inc/libft.h"
 
-typedef struct vecti3
+typedef struct vect3
 {
-	int16_t r;
-	int16_t g;
-	int16_t b;
-}	t_vectu3;
+	int r;
+	int g;
+	int b;
+}	t_vect3;
 
 typedef struct s_cub_file
 {
@@ -31,17 +31,25 @@ typedef struct s_cub_file
 	char	*so_tex_path;
 	char	*we_tex_path;
 	char	*ea_tex_path;
-	t_vectu3	color_f;
-	t_vectu3	color_c;
+	t_vect3	color_f;
+	t_vect3	color_c;
 	t_list	*raw_map;
 }	t_cub_file;
 
 
-bool is_valid_arg(int argc, char *argv[]);
+void	first_arg_checks(int argc, char **argv);
+void	launch_parser(char *filename, t_cub_file *cub);
+bool 	is_charset_in_str(char *str, char *charset);
+bool	can_read_file(char *filename);
+char	*check_cub_map(char **map);
+bool	check_file_ext(char *filename, char *ext);
 
-char	*parse_cub_file(char *filename);
+char	*parse_cub_file(t_cub_file *cub_file, int fd);
 char	*parse_cub_line_map(t_cub_file *cub, char *line);
 char	*parse_cub_line_color(t_cub_file *cub, char **tab);
 char	*parse_cub_line_texture(t_cub_file *cub, char *line);
+
+void 	init_cub_file_data(t_cub_file *cub);
+void	free_cub_data(t_cub_file *cub);
 
 #endif

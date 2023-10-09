@@ -6,44 +6,86 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:40:08 by maroy             #+#    #+#             */
-/*   Updated: 2023/10/03 17:25:00 by maroy            ###   ########.fr       */
+/*   Updated: 2023/10/09 02:06:06 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-static bool is_cub_file(char *filename)
+void	launch_parser(char *filename, t_cub_file *cub)
 {
-    const char *extension = ft_strrchr(filename, '.');
-    if (extension && !ft_strcmp(extension, ".cub"))
-        return (true);
-    print_error("Invalid file extension");
-    return (false);
-}
+	int		fd;
+	char	*error;
 
-static bool is_valid_file(char *filename)
-{
-	int32_t fd;
-	unsigned char	c;
-	int64_t	br;
-
-	fd = open(filename, O_RDONLY); 
-	br = read(fd, &c, 1);
+	fd = open(filename, O_RDONLY);
+	init_cub_file_data(cub);
+	error = parse_cub_file(cub, fd);
 	close(fd);
-	if (fd >= 0 && br == 1)
-		return (true);
-	print_error("Unable to read file or is empty");
-	return (false);
+	if (error)
+		print_error_then_exit(filename, error);
 }
 
-bool is_valid_arg(int argc, char *argv[])
+bool	check_file_ext(char *filename, char *ext)
 {
-	if (argc != 2)
-	{
-		print_error("Invalid arguments");
+	size_t	len;
+
+	if (!filename || !ext)
 		return (false);
-	}
-	if (!is_valid_file(argv[1]) || !is_cub_file(argv[1]))
+	len = ft_strlen(filename);
+	if (len < ft_strlen(ext) + 1)
+		return (false);
+	if (ft_strcmp(ext, &filename[len - 4]))
 		return (false);
 	return (true);
+}
+
+char	*check_cub_map(char **map)
+{
+	int		size;
+	char	dir;
+	int		i;
+
+	if (!map || !(*map))
+		return (CUBMAP_NULL);
+	size = 0;
+	while (map[size])
+		size++;
+	dir = 0;
+	i = -1;
+	while (++i < size)
+		if (((i == 0 || i == size - 1) && is_charset_in_str(map[i], "0NSWE"))
+			|| !mid_row_valid(map, i, &dir))
+			break ;
+	ft_free_tab(map);
+	if (i != size)
+		return (CUBMAP_ROW_INV);
+	if (!dir)
+		return (CUBMAP_DEF_DIR);
+	return (NULL);
+}
+
+bool	can_read_file(char *filename)
+{
+	int		fd;
+	long	br;
+	char	c;
+
+	if (!filename)
+		return (false);
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		return (false);
+	br = read(fd, &c, 1);
+	close(fd);
+	return (br == 1);
+}
+
+void	first_arg_checks(int argc, char **argv)
+{
+	if (argc != 2)
+		print_error_then_exit(NULL, PARSER_ARG_NB);
+	if (!check_file_ext(argv[1], ".cub"))
+		print_error_then_exit(argv[1], PARSER_ARG_EXT);
+	if (!can_read_file(argv[1]))
+		print_error_then_exit(argv[1], PARSER_ARG_OPEN);
 }
