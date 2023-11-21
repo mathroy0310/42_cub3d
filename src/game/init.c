@@ -6,11 +6,11 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 01:41:59 by maroy             #+#    #+#             */
-/*   Updated: 2023/10/09 02:59:25 by maroy            ###   ########.fr       */
+/*   Updated: 2023/11/21 16:12:23 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/cub3d.h"
+#include "cub3d.h"
 
 int	max_list_str_len(t_list *lst)
 {
@@ -22,7 +22,7 @@ int	max_list_str_len(t_list *lst)
 	max = 0;
 	while (cur)
 	{
-		len = (int)ft_strlen((char *)(cur->content));
+		len = (int)ft_strlen(cur->content);
 		if (len > max)
 			max = len;
 		cur = cur->next;
@@ -32,7 +32,7 @@ int	max_list_str_len(t_list *lst)
 
 bool	mid_row_valid(char **map, int row, char *dir)
 {
-	int			col;
+	int	col;
 
 	col = -1;
 	while (map[row][++col])
@@ -45,15 +45,12 @@ bool	mid_row_valid(char **map, int row, char *dir)
 				return (false);
 			*dir = map[row][col];
 		}
-		if (ft_strchr("0NSWE", map[row][col])
-			&& (ft_strchr(" ", map[row][col + 1])
-			|| ft_strchr(" ", map[row][col - 1])
-			|| ft_strchr(" ", map[row + 1][col])
-			|| ft_strchr(" ", map[row - 1][col])
-			|| ft_strchr(" ", map[row - 1][col + 1])
-			|| ft_strchr(" ", map[row - 1][col - 1])
-			|| ft_strchr(" ", map[row + 1][col + 1])
-			|| ft_strchr(" ", map[row + 1][col - 1])))
+		if (ft_strchr("0NSWE", map[row][col]) && (ft_strchr(" ", map[row][col
+					+ 1]) || ft_strchr(" ", map[row][col - 1]) || ft_strchr(" ",
+					map[row + 1][col]) || ft_strchr(" ", map[row - 1][col])
+				|| ft_strchr(" ", map[row - 1][col + 1]) || ft_strchr(" ",
+					map[row - 1][col - 1]) || ft_strchr(" ", map[row + 1][col
+					+ 1]) || ft_strchr(" ", map[row + 1][col - 1])))
 			return (false);
 	}
 	return (true);
@@ -107,7 +104,7 @@ char	*init_game(t_cub_file *cub, t_game *game)
 	game->map = make_char_map(cub->raw_map);
 	if (!game->map)
 		return (MALLOC_CHARMAP);
-	
+
 	game->map_w = max_list_str_len(cub->raw_map);
 	game->map_h = ft_lstsize(cub->raw_map);
 

@@ -6,11 +6,11 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:40:08 by maroy             #+#    #+#             */
-/*   Updated: 2023/10/09 02:06:06 by maroy            ###   ########.fr       */
+/*   Updated: 2023/11/21 16:47:01 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/cub3d.h"
+#include "cub3d.h"
 
 void	launch_parser(char *filename, t_cub_file *cub)
 {

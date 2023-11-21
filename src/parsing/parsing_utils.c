@@ -6,21 +6,23 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 18:12:41 by maroy             #+#    #+#             */
-/*   Updated: 2023/10/09 03:16:30 by maroy            ###   ########.fr       */
+/*   Updated: 2023/11/21 16:09:45 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/cub3d.h"
+#include "cub3d.h"
 
-static bool ready_to_parse_map(t_cub_file *cub)
+static bool	ready_to_parse_map(t_cub_file *cub)
 {
-    bool textures_ready;
-    bool colors_ready;
-	
-	textures_ready = (cub->no_tex_path && cub->so_tex_path && cub->we_tex_path && cub->ea_tex_path);
-	colors_ready = (cub->color_f.r >= 0 && cub->color_f.g >= 0 && cub->color_f.b >= 0 &&
-                         cub->color_c.r >= 0 && cub->color_c.g >= 0 && cub->color_c.b >= 0);
-    return (textures_ready && colors_ready);
+	bool	textures_ready;
+	bool	colors_ready;
+
+	textures_ready = (cub->no_tex_path && cub->so_tex_path && cub->we_tex_path
+			&& cub->ea_tex_path);
+	colors_ready = (cub->color_f.r >= 0 && cub->color_f.g >= 0
+			&& cub->color_f.b >= 0 && cub->color_c.r >= 0 && cub->color_c.g >= 0
+			&& cub->color_c.b >= 0);
+	return (textures_ready && colors_ready);
 }
 
 char	*parse_cub_line_map(t_cub_file *cub, char *line)
@@ -50,9 +52,10 @@ char	*parse_cub_line_map(t_cub_file *cub, char *line)
 
 static char	*apply_colors(t_cub_file *cub, char *cat, char **colors_tab)
 {
-	t_vect3 *color;
+	t_vect3	*color;
 
-	if ((*cat == 'F' && cub->color_f.r >= 0) || (*cat == 'C' && cub->color_c.r >= 0))
+	if ((*cat == 'F' && cub->color_f.r >= 0) || (*cat == 'C'
+			&& cub->color_c.r >= 0))
 		return (PARSER_COLOR_ONCE);
 	color = &cub->color_f;
 	if (*cat == 'C')
@@ -99,9 +102,9 @@ char	*parse_cub_line_texture(t_cub_file *cub, char *line)
 
 char	*parse_cub_line_color(t_cub_file *cub, char **tab)
 {
-	char	**colors;
-	int		i;
-	int		comma;
+	char **colors;
+	int i;
+	int comma;
 
 	if (!tab[1] || tab[2])
 		return (PARSER_COLOR_LINE_ELEM);

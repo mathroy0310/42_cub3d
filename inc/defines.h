@@ -6,27 +6,27 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:19:55 by maroy             #+#    #+#             */
-/*   Updated: 2023/10/09 02:56:40 by maroy            ###   ########.fr       */
+/*   Updated: 2023/11/21 16:47:16 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEFINES_H
 # define DEFINES_H
 
-#ifndef DEBUG_MODE
-# define DEBUG_MODE 0
-#endif
+# ifndef DEBUG_MODE
+#  define DEBUG_MODE 0
+# endif
 
 /*	==== GLOBAL ==== */
 
 # define WIN_TITLE "cub3D"
-# define WIN_X		900
-# define WIN_Y		700
+# define WIN_X 900
+# define WIN_Y 700
+# include "mlx.h"
 
 /*	==== LINUX ==== */
 # ifdef __linux__
 #  define USING_LINUX 1
-#  include "../libs/minilibx-linux/mlx.h"
 #  include <X11/X.h>
 #  define KEY_ESC 65307
 #  define KEY_LEFT_ARROW 65361
@@ -36,51 +36,49 @@
 /*	==== MACOS ==== */
 # else
 #  define USING_LINUX 0
-#  include "../libs/minilibx-mac/mlx.h"
 #  define KEY_ESC 53
 #  define KEY_LEFT_ARROW 123
 #  define KEY_UP_ARROW 126
 #  define KEY_RIGHT_ARROW 124
 #  define KEY_DOWN_ARROW 125
-
 # endif
 
 # define ERR_PROMPT "ERROR ❌: "
 
 /*	==== PARSER ERRORS ==== */
 
-# define PARSER_ARG_NB			"Wrong number of arguments"
-# define PARSER_ARG_EXT			"Wrong file extension"
-# define PARSER_ARG_OPEN		"Cannot open file or is empty"
-# define PARSER_XPM_EXT			"All texture files must have XPM extension"
-# define PARSER_XPM_OPN			"Cannot open one of the texture files"
-# define PARSER_LINE_FMT		"A line is not correctly formatted"
-# define PARSER_MAP_NOT_RDY		"Not enough information before parsing map"
-# define PARSER_MAP_CHAR		"Map contains an invalid character"
-# define PARSER_COLOR_LINE_ELEM	"A color line has too many or too few elements"
-# define PARSER_COLOR_LINE_CHAR	"A color line contains non-numeric characters"
-# define PARSER_COLOR_LINE_FMT	"A color line is wrongly formatted"
-# define PARSER_COLOR_ONCE		"F and C should only be set once"
-# define PARSER_COLOR_RANGE		"Color must be R,G,B between 0 and 255"
-# define PARSER_TEXTURE_LINE	"Texture line error or direction already set"
+# define PARSER_ARG_NB "Wrong number of arguments"
+# define PARSER_ARG_EXT "Wrong file extension"
+# define PARSER_ARG_OPEN "Cannot open file or is empty"
+# define PARSER_XPM_EXT "All texture files must have XPM extension"
+# define PARSER_XPM_OPN "Cannot open one of the texture files"
+# define PARSER_LINE_FMT "A line is not correctly formatted"
+# define PARSER_MAP_NOT_RDY "Not enough information before parsing map"
+# define PARSER_MAP_CHAR "Map contains an invalid character"
+# define PARSER_COLOR_LINE_ELEM "A color line has too many or too few elements"
+# define PARSER_COLOR_LINE_CHAR "A color line contains non-numeric characters"
+# define PARSER_COLOR_LINE_FMT "A color line is wrongly formatted"
+# define PARSER_COLOR_ONCE "F and C should only be set once"
+# define PARSER_COLOR_RANGE "Color must be R,G,B between 0 and 255"
+# define PARSER_TEXTURE_LINE "Texture line error or direction already set"
 
 /*	==== MALLOC ERRORS ==== */
 
-# define MALLOC_SPLIT	"Malloc error during split"
-# define MALLOC_STRDUP	"Malloc error while parsing cub map (strdup)"
-# define MALLOC_LSTNEW	"Malloc error while parsing cub map (lstnew)"
-# define MALLOC_COLLINE	"Malloc error while parsing color line"
-# define MALLOC_CHARMAP	"Malloc error while creating map in game init"
-# define MALLOC_TEXTURE	"Malloc error while initializing wall textures"
+# define MALLOC_SPLIT "Malloc error during split"
+# define MALLOC_STRDUP "Malloc error while parsing cub map (strdup)"
+# define MALLOC_LSTNEW "Malloc error while parsing cub map (lstnew)"
+# define MALLOC_COLLINE "Malloc error while parsing color line"
+# define MALLOC_CHARMAP "Malloc error while creating map in game init"
+# define MALLOC_TEXTURE "Malloc error while initializing wall textures"
 
 /*	==== CUBMAP MESSAGES ==== */
-# define CUBMAP_NULL	"Map is NULL"
-# define CUBMAP_ROW_INV	"A map row is not valid"
-# define CUBMAP_DEF_DIR	"No default direction found"
+# define CUBMAP_NULL "Map is NULL"
+# define CUBMAP_ROW_INV "A map row is not valid "
+# define CUBMAP_DEF_DIR "No default direction found"
 
 /*	==== GAME AND GRAPHICS MESSAGES ==== */
-# define GRAPHICS_INIT			"MinilibX initialization failed"
-# define WINDOW_INIT			"Cannot create new window"
+# define GRAPHICS_INIT "MinilibX initialization failed"
+# define WINDOW_INIT "Cannot create new window"
 
 /*  ==== COLOR CODES  ==== */
 

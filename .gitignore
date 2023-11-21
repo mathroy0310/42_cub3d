@@ -1,2 +1,5 @@
 /libs
+/.vscode/*
 /.vscode/settings.json
+cub3d
+/cub3d.dSYM/*
