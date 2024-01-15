@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:40:08 by maroy             #+#    #+#             */
-/*   Updated: 2023/11/21 16:47:01 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/15 13:39:48 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*check_cub_map(char **map)
 	i = -1;
 	while (++i < size)
 		if (((i == 0 || i == size - 1) && is_charset_in_str(map[i], "0NSWE"))
-			|| !mid_row_valid(map, i, &dir))
+			|| !is_mid_row_valid(map, i, &dir))
 			break ;
 	ft_free_tab(map);
 	if (i != size)

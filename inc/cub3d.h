@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:15:26 by maroy             #+#    #+#             */
-/*   Updated: 2023/11/21 15:53:36 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/15 15:59:05 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,11 @@ typedef struct s_game
 	char	**map;
 	int		map_w;
 	int		map_h;
-	void	*mlx_ptr;
-	void	*mlx_win;
+	mlx_t 	*mlx;
 }			t_game;
 
 char		*init_game(t_cub_file *cub, t_game *game);
-bool		mid_row_valid(char **map, int row, char *dir);
+bool		is_mid_row_valid(char **map, int row, char *dir);
 char		**make_char_map(t_list *raw_map);
 int			max_list_str_len(t_list *lst);
 

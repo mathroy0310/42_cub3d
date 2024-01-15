@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 01:41:59 by maroy             #+#    #+#             */
-/*   Updated: 2023/11/21 16:12:23 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/15 15:59:11 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	max_list_str_len(t_list *lst)
 	return (max);
 }
 
-bool	mid_row_valid(char **map, int row, char *dir)
+bool	is_mid_row_valid(char **map, int row, char *dir)
 {
 	int	col;
 
@@ -88,13 +88,10 @@ char	**make_char_map(t_list *raw_map)
 char	*init_graphics(t_cub_file *cub, t_game *game)
 {
 	(void)cub;
-	game->mlx_ptr = mlx_init();
-	if (!game->mlx_ptr)
+	game->mlx = mlx_init( WIN_X, WIN_Y, WIN_TITLE, FALSE);
+	if (!game->mlx)
 		return (GRAPHICS_INIT);
-	game->mlx_win = mlx_new_window(game->mlx_ptr, WIN_X, WIN_Y, WIN_TITLE);
-	if (!game->mlx_win)
-		return (WINDOW_INIT);
-	mlx_loop(game->mlx_ptr);
+	mlx_loop(game->mlx);
 	return (NULL);
 }
 

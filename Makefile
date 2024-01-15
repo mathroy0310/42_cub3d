@@ -6,7 +6,7 @@
 #    By: maroy <maroy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/21 16:01:23 by maroy             #+#    #+#              #
-#    Updated: 2023/11/21 16:46:12 by maroy            ###   ########.fr        #
+#    Updated: 2024/01/15 16:11:42 by maroy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,13 +20,14 @@ LIBFT = $(LIBFT_DIR)/libft.a
 CFLAGS += -I$(LIBFT_DIR)/inc -L$(LIBFT_DIR) -lft
 
 LIBFT	= ./libs/libft/libft.a
-ifeq ($(shell uname), Linux)
-	MLX		= ./libs/minilibx-linux/libmlx.a
-else ifeq ($(shell uname), Darwin)
-	MLX		= ./libs/minilibx-mac-osx/libmlx.a
-else
-	@echo "${RED}Error: MLX is not available on your system. 🚫${DEFAULT}"
-endif
+# ifeq ($(shell uname), Linux)
+# 	MLX		= ./libs/minilibx-linux/libmlx.a
+# else ifeq ($(shell uname), Darwin)
+# 	MLX		= ./libs/minilibx-mac-osx/libmlx.a
+# else
+# 	@echo "${RED}Error: MLX is not available on your system. 🚫${DEFAULT}"
+# endif
+MLX = ./libs/MLX42/build/libmlx42.a
 
 SRC_MAIN_DIR		= src
 SRC_PARSING_DIR 	= 	$(SRC_MAIN_DIR)/parsing
@@ -73,31 +74,20 @@ $(LIBFT):
 
 
 $(MLX) :
-ifeq ($(shell uname), Linux)
-	@echo "${BLUE}Installing MLX ... ${DARKGRAY}";
-	@$(MK) ./libs/minilibx-linux;
-	@git clone https://github.com/42Paris/minilibx-linux.git ./libs/minilibx-linux > /dev/null 2>&1;
-	@make -C ./libs/minilibx-linux > /dev/null 2>&1;
+	@echo "${BLUE}Installing MLX42 ... ${DARKGRAY}";
+	@git clone https://github.com/codam-coding-college/MLX42.git ./libs/MLX42 > /dev/null 2>&1;
+	@brew install cmake
+	@brew install glfw
+	@cmake -B ./libs/MLX42/build -S ./libs/MLX42
+	@cmake --build ./libs/MLX42/build -j4
 	@echo "${BLUE}MLX successfully installed 🗄${DEFAULT}";
-
-else ifeq ($(shell uname), Darwin)
-	@echo "${BLUE}Installing MLX ... ${DARKGRAY}";
-	@$(MK) ./libs/minilibx-mac-osx;
-	@git clone https://github.com/dannywillems/minilibx-mac-osx.git ./libs/minilibx-mac-osx > /dev/null 2>&1;
-	@make -C ./libs/minilibx-mac-osx > /dev/null 2>&1;
-	@echo "${BLUE}MLX successfully installed 🗄${DEFAULT}";
-else
-	@echo "${RED}Error: MLX is not available on your system. 🚫${DEFAULT}"
-endif
 
 ifeq ($(shell uname -s), Linux)
-
-	MLX = ./libs/minilibx-linux/libmlx.a  # or adjust for macOS
-    MLXFLAGS = -L./libs/minilibx-linux -I./libs/minilibx-linux -lmlx -L/usr/lib -lXext -lX11 -lm -lz
-	CFLAGS += -I./libs/minilibx-linux
+    MLXFLAGS = -L./libs/MLX42/build -I./libs/MLX42/include/MLX42 -L/usr/lib -lXext -lX11 -lm -lz
+	CFLAGS += -lmlx42 -ldl -lglfw -pthread -lm
 else ifeq ($(shell uname -s), Darwin) # macOS
-    MLXFLAGS = -L./libs/minilibx-mac-osx -lmlx -framework OpenGL -framework AppKit
-	CFLAGS += -I./libs/minilibx-mac-osx
+    MLXFLAGS = -L./libs/MLX42/build -I./libs/MLX42/include/MLX42 -framework Cocoa -framework OpenGL -framework IOKit
+	CFLAGS += -lmlx42 -lglfw -L"/Users/${USER}/homebrew/Cellar/glfw/3.3.9/lib"
 else
     $(error Unsupported operating system)
 endif

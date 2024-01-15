@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:19:55 by maroy             #+#    #+#             */
-/*   Updated: 2023/11/21 16:47:16 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/15 15:31:51 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define WIN_TITLE "cub3D"
 # define WIN_X 900
 # define WIN_Y 700
-# include "mlx.h"
+# include "MLX42.h"
 
 /*	==== LINUX ==== */
 # ifdef __linux__
