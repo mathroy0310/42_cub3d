@@ -6,7 +6,7 @@
 #    By: maroy <maroy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/21 16:01:23 by maroy             #+#    #+#              #
-#    Updated: 2024/01/15 16:28:05 by maroy            ###   ########.fr        #
+#    Updated: 2024/01/15 17:37:33 by maroy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,11 +88,8 @@ ifeq ($(shell uname -s), Linux)
 else ifeq ($(shell uname -s), Darwin) # macOS
     MLXFLAGS = -L./libs/MLX42/build -I./libs/MLX42/include/MLX42 -framework Cocoa -framework OpenGL -framework IOKit
 	CFLAGS += -lmlx42 -lglfw
-	ifneq ("$(wildcard "/Users/${USER}/homebrew/Cellar/glfw/3.3.9/lib"), "")
-		CFLAGS += -L"/Users/${USER}/homebrew/Cellar/glfw/3.3.9/lib"
-	else	
-		CFLAGS += -L"/Users/${USER}/.brew/opt/glfw/lib"
-	endif
+	CFLAGS += -L"/Users/${USER}/homebrew/Cellar/glfw/3.3.9/lib"
+	CFLAGS += -L"/Users/${USER}/.brew/opt/glfw/lib"
 else
     $(error Unsupported operating system)
 endif
