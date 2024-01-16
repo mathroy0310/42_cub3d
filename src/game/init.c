@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 01:41:59 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/15 19:18:04 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/15 21:52:04 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,28 +85,45 @@ char	**make_char_map(t_list *raw_map)
 	return (map);
 }
 
+void my_keyhook(mlx_key_data_t keydata, void* param)
+{
+	t_game *game;
 
-#define SIZE 64
+	game = param;
+
+	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_RELEASE)
+		printf("ESCAPE\n");
+	if ((keydata.key == MLX_KEY_W)
+		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+		game->img_player->instances[0].y -= PLAYER_SPEED;
+	if ((keydata.key == MLX_KEY_S)
+		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+		game->img_player->instances[0].y += PLAYER_SPEED;
+	if ((keydata.key == MLX_KEY_D)
+		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+		game->img_player->instances[0].x += PLAYER_SPEED;
+	if ((keydata.key == MLX_KEY_A) 
+		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+		game->img_player->instances[0].x -= PLAYER_SPEED;
+}
 
 char	*init_graphics(t_cub_file *cub, t_game *game)
 {
 	(void)cub;
 
-	
-	mlx_set_setting(MLX_MAXIMIZED, true);
-	game->mlx = mlx_init( WIN_X, WIN_Y, WIN_TITLE, true);
+	int i = 0;
+	int j = 0;
+	t_vect2u player_pos;
+	player_pos = (t_vect2u){0, 0};
+	game->mlx = mlx_init( WIN_X, WIN_Y, WIN_TITLE, false);
 	if (!game->mlx)
 		return (GRAPHICS_INIT);
-		
 
-	int i;
-	int j;
-	
-	j = 0;
-	i = 0;
-    mlx_image_t* img_un = mlx_new_image(game->mlx, SIZE, SIZE);
+    mlx_image_t* img_un = mlx_new_image(game->mlx, GRID_SIZE, GRID_SIZE);
+	mlx_image_t* img_zero = mlx_new_image(game->mlx, GRID_SIZE, GRID_SIZE);
+	game->img_player = mlx_new_image(game->mlx, GRID_SIZE / 2, GRID_SIZE / 2);
 
-	mlx_image_t* img_zero = mlx_new_image(game->mlx, SIZE, SIZE);
+	debug_print_decimal("Grid Size" , GRID_SIZE);
 
 	while (i < game->map_h)
 	{
@@ -115,53 +132,28 @@ char	*init_graphics(t_cub_file *cub, t_game *game)
 		{
 			if (game->map[i][j] == '1')
 			{
-				mlx_image_to_window(game->mlx, img_un, j * SIZE, i * SIZE);
-				u_int32_t x = 0;
-				u_int32_t y = 0;
-				while(x < img_un->width - 1)
-				{
-					y = 0;
-					while(y < img_un->height - 1)
-					{
-						mlx_put_pixel(img_un, x, y, 0x484e52FF);
-						y++;
-					}
-					x++;
-				}
+				mlx_image_to_window(game->mlx, img_un, j * GRID_SIZE, i * GRID_SIZE);
+				fill_image(img_un, 0x484e52FF);
 			}
 			else if (game->map[i][j] == '0')
 			{
-				mlx_image_to_window(game->mlx, img_zero, j * SIZE, i * SIZE);
-				u_int32_t x = 0;
-				u_int32_t y = 0;
-				while(x < img_zero->width - 1)
-				{
-					y = 0;
-					while(y < img_zero->height - 1 )
-					{
-						mlx_put_pixel(img_zero, x, y, 0xafb9c5FF);
-						y++;
-					}
-					x++;
-				}
+				mlx_image_to_window(game->mlx, img_zero, j * GRID_SIZE, i * GRID_SIZE);
+				fill_image(img_zero, 0xafb9c5FF);
 			}
-			// else if (game->map[i][j] == 'E' || game->map[i][j] == 'W'
-			// 	|| game->map[i][j] == 'S' || game->map[i][j] == 'N')
-			// {
-			// 	mlx_image_to_window(game->mlx, img, j * 8, i * 8);
-			// }
-			// else
-			// {
-			// 	mlx_image_to_window(game->mlx, img, j * 8, i * 8);
-			// }
+			else if (game->map[i][j] == 'N' || game->map[i][j] == 'S' || game->map[i][j] == 'W' || game->map[i][j] == 'E')
+			{
+				player_pos = (t_vect2u){j, i};
+			}
 			j++;
 		}
 		i++;
 	}
 
 
-	
-
+	mlx_image_to_window(game->mlx, img_zero, player_pos.x * GRID_SIZE, player_pos.y * GRID_SIZE);
+	mlx_image_to_window(game->mlx, game->img_player, player_pos.x * GRID_SIZE, player_pos.y * GRID_SIZE);
+	fill_image(game->img_player, 0x53a352FF);
+	mlx_key_hook(game->mlx, &my_keyhook, game);
 	mlx_loop(game->mlx);
 	mlx_terminate(game->mlx);
 	return (NULL);

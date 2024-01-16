@@ -6,7 +6,7 @@
 #    By: maroy <maroy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/21 16:01:23 by maroy             #+#    #+#              #
-#    Updated: 2024/01/15 17:46:19 by maroy            ###   ########.fr        #
+#    Updated: 2024/01/15 19:48:55 by maroy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,8 @@ SRCS_PARSING =  valid.c \
 				parsing.c \
 				parsing_utils.c \
 
-SRCS_GAME 	=	init.c
+SRCS_GAME 	=	init.c \
+				mini_map.c \
 
 SRC_M = $(addprefix $(SRC_MAIN_DIR)/, $(SRCS_MAIN))
 SRC_P = $(addprefix $(SRC_PARSING_DIR)/, $(SRCS_PARSING))

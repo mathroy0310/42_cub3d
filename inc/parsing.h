@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:38:49 by maroy             #+#    #+#             */
-/*   Updated: 2023/11/21 15:53:31 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/15 20:16:28 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdbool.h>
 # include <stdint.h>
 
-typedef struct vect3
+typedef struct s_vect3
 {
 	int		r;
 	int		g;

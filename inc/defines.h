@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:19:55 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/15 15:31:51 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/15 21:50:49 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,31 +17,21 @@
 #  define DEBUG_MODE 0
 # endif
 
+# include "MLX42.h"
+
 /*	==== GLOBAL ==== */
 
 # define WIN_TITLE "cub3D"
-# define WIN_X 900
-# define WIN_Y 700
-# include "MLX42.h"
 
-/*	==== LINUX ==== */
-# ifdef __linux__
-#  define USING_LINUX 1
-#  include <X11/X.h>
-#  define KEY_ESC 65307
-#  define KEY_LEFT_ARROW 65361
-#  define KEY_UP_ARROW 65362
-#  define KEY_RIGHT_ARROW 65363
-#  define KEY_DOWN_ARROW 65364
-/*	==== MACOS ==== */
-# else
-#  define USING_LINUX 0
-#  define KEY_ESC 53
-#  define KEY_LEFT_ARROW 123
-#  define KEY_UP_ARROW 126
-#  define KEY_RIGHT_ARROW 124
-#  define KEY_DOWN_ARROW 125
-# endif
+# define WIN_X 1280
+# define WIN_Y 720
+
+# define GRID_SIZE 16
+
+/*	==== PLAYER ==== */
+
+# define PLAYER_SPEED GRID_SIZE / 4
+
 
 # define ERR_PROMPT "ERROR ❌: "
 
