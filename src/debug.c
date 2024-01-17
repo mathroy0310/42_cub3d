@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 02:51:54 by maroy             #+#    #+#             */
-/*   Updated: 2023/11/21 16:10:01 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/16 21:39:07 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,17 @@ void	debug_print_msg(char *msg)
 	}
 }
 
-void	debug_print_decimal(char *msg, int arg)
+void	debug_print_number(char *msg, int format, int arg, double arg2)
 {
 	if (DEBUG_MODE == true)
 	{
-		printf(ANSI_COLOR_BRIGHT_BLUE "DEBUG 🐞: %s --> -={ %d }=-", msg, arg);
+		printf(ANSI_COLOR_BRIGHT_BLUE);
+		if (format == 'd' || format == 'i')
+			printf("DEBUG 🐞: %s --> -={ %d }=-", msg, arg);
+		if (format == 'u')
+			printf("DEBUG 🐞: %s --> -={ %u }=-", msg, arg);
+		if (format == 'f')
+			printf("DEBUG 🐞: %s --> -={ %lf }=-", msg, arg2);
 		printf(ANSI_COLOR_RESET "\n");
 	}
 }
@@ -35,12 +41,18 @@ void	debug_print_colors(char *cat, t_vect3 color)
 	if (DEBUG_MODE == true)
 	{
 		if (*cat == 'F' && color.r >= 0)
-			printf(ANSI_COLOR_BRIGHT_BLUE "DEBUG 🐞: %s Color --> -={ r:%d, g:%d, \
-				b:%d }=-", "FLOOR", color.r, color.g, color.b);
+			printf(ANSI_COLOR_BRIGHT_BLUE "DEBUG 🐞: %s Color --> -={ r:%d, g:%d, b:%d}=-", 
+					"FLOOR",
+					color.r,
+					color.g,
+					color.b);
 		else if (*cat == 'C' && color.r >= 0)
-			printf(ANSI_COLOR_BRIGHT_BLUE "DEBUG 🐞: %s Color --> -={ r:%d, g:%d, \
-				b:%d }=-", "CELLING", color.r, color.g, color.b);
-		printf(ANSI_COLOR_RESET "\n");
+			printf(ANSI_COLOR_BRIGHT_BLUE "DEBUG 🐞: %s Color --> -={ r:%d, g:%d, b:%d}=-",
+					"CELLING",
+					color.r,
+					color.g,
+					color.b);
+	printf(ANSI_COLOR_RESET "\n");
 	}
 }
 
@@ -54,8 +66,8 @@ void	debug_print_map(t_game *game)
 		// DEBUG PRINT MAP WITH COLORS
 		i = 0;
 		j = 0;
-		debug_print_decimal("map_w", game->map_w);
-		debug_print_decimal("map_h", game->map_h);
+		debug_print_number("map_w", 'd', game->map_w, 0);
+		debug_print_number("map_h", 'd',game->map_h, 0);
 		while (i < game->map_h)
 		{
 			j = 0;

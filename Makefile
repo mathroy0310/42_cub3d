@@ -6,7 +6,7 @@
 #    By: maroy <maroy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/21 16:01:23 by maroy             #+#    #+#              #
-#    Updated: 2024/01/15 19:48:55 by maroy            ###   ########.fr        #
+#    Updated: 2024/01/16 21:38:27 by maroy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ MLX = ./libs/MLX42/build/libmlx42.a
 SRC_MAIN_DIR		= src
 SRC_PARSING_DIR 	= 	$(SRC_MAIN_DIR)/parsing
 SRC_GAME_DIR		=	$(SRC_MAIN_DIR)/game
+SRC_MINIMAP_DIR		=	$(SRC_MAIN_DIR)/minimap
 
 SRCS_MAIN	=	main.c \
 				debug.c
@@ -41,13 +42,19 @@ SRCS_PARSING =  valid.c \
 				parsing_utils.c \
 
 SRCS_GAME 	=	init.c \
-				mini_map.c \
+				player_movement.c \
+				key_hook.c \
+
+SRCS_MINIMAP = 	minimap.c \
+				minimap_utils.c \
+
 
 SRC_M = $(addprefix $(SRC_MAIN_DIR)/, $(SRCS_MAIN))
 SRC_P = $(addprefix $(SRC_PARSING_DIR)/, $(SRCS_PARSING))
 SRC_G = $(addprefix $(SRC_GAME_DIR)/, $(SRCS_GAME))
+SRC_MM = $(addprefix $(SRC_MINIMAP_DIR)/, $(SRCS_MINIMAP))
 
-SRC		= $(SRC_M) $(SRC_P) $(SRC_G)
+SRC		= $(SRC_M) $(SRC_P) $(SRC_G) $(SRC_MM)
 
 
 BIN     = $(patsubst $(SRC)/%.c,bin/%.o,$(SRC))
@@ -75,17 +82,16 @@ $(LIBFT):
 
 
 $(MLX) :
+
 	@echo "${BLUE}Installing MLX42 ... ${DARKGRAY}";
 	@git clone https://github.com/codam-coding-college/MLX42.git ./libs/MLX42 > /dev/null 2>&1;
-	@brew install cmake
-	@brew install glfw
 	@cmake -B ./libs/MLX42/build -S ./libs/MLX42
 	@cmake --build ./libs/MLX42/build -j4
 	@echo "${BLUE}MLX successfully installed 🗄${DEFAULT}";
 
 ifeq ($(shell uname -s), Linux)
-    MLXFLAGS = -L./libs/MLX42/build -I./libs/MLX42/include/MLX42 -L/usr/lib -lXext -lX11 -lm -lz
-	CFLAGS += -lmlx42 -ldl -lglfw -pthread -lm
+    MLXFLAGS = -L./libs/MLX42/build -I./libs/MLX42/include/MLX42 -ldl -lmlx42 -lglfw -pthread -lm
+	CFLAGS += 
 else ifeq ($(shell uname -s), Darwin) # macOS
     MLXFLAGS = -L./libs/MLX42/build -I./libs/MLX42/include/MLX42 -framework Cocoa -framework OpenGL -framework IOKit
 	CFLAGS += -lmlx42 -lglfw

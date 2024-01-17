@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:37:08 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/15 13:40:38 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/16 21:10:38 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ int	main(int argc, char *argv[])
 	error_msg = init_game(&cub_file, &game);
 	free_cub_data(&cub_file);
 	if (error_msg)
+	{
+		destroy_game(&game, false);
 		print_error_then_exit(argv[1], error_msg);
+	}
 	return (EXIT_SUCCESS);
 }

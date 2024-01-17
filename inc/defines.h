@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:19:55 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/15 21:50:49 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/16 22:10:26 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,37 @@
 
 # define WIN_TITLE "cub3D"
 
-# define WIN_X 1280
-# define WIN_Y 720
-
-# define GRID_SIZE 16
+# define WIN_X 900
+# define WIN_Y 700
 
 /*	==== PLAYER ==== */
 
-# define PLAYER_SPEED GRID_SIZE / 4
+# define PLAYER_MOV_SPEED 0.03
+# define PLAYER_ROT_SPEED 0.05
 
+# define PLAYER_FOV 60
+
+/* === MINIMAP === */
+
+# define MINISIDE 20
+# define MINIPAD 32
+
+# define MINI_COLOR_WALL 0x1b263bFF
+# define MINI_COLOR_DARKWALL 0x0d1b2aFF
+# define MINI_COLOR_PLAYER 0xFFFFFFFF
+# define MINI_COLOR_PLAYER2 0xc0c0c0FF
+# define MINI_COLOR_FLOOR 0x415a77FF
+
+/*	==== RAYCASTING ==== */
+
+# ifndef M_PY
+#  define M_PI 3.14159265358979323846
+# endif
+# ifndef M_PI_2
+#  define M_PI_2 1.57079632679489661923
+# endif
+
+# define M_PI_PI 6.28318530717958647692
 
 # define ERR_PROMPT "ERROR ❌: "
 
