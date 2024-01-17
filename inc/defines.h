@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:19:55 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/17 13:36:00 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/17 15:56:46 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 
 /*	==== PLAYER ==== */
 
-# define PLAYER_MOV_SPEED 0.08
+# define PLAYER_MOV_SPEED 0.1
 # define PLAYER_ROT_SPEED 0.05
 
 # define PLAYER_FOV 60
@@ -43,6 +43,7 @@
 # define MINI_COLOR_PLAYER 0xFFFFFFFF
 # define MINI_COLOR_PLAYER2 0xc0c0c0FF
 # define MINI_COLOR_FLOOR 0x415a77FF
+# define MINI_COLOR_RAY 0x00FF0088
 
 /*	==== RAYCASTING ==== */
 

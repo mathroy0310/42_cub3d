@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 19:11:27 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/17 13:32:09 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/17 15:06:03 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,11 @@ static void	player_move(t_game *game, double speed, double angle)
 	dy = speed * sin(angle);
 	game->p.pos.x += dx;
 	game->p.pos.y += dy;
-	if (!can_player_move(game, dx, 0))
-		game->p.pos.x -= dy;
-	if (!can_player_move(game, 0, dy))
-		game->p.pos.y -= dx;
+	if (!can_player_move(game, dx, dy))
+	{
+		game->p.pos.x -= dx;
+		game->p.pos.y -= dy;
+	}
 }
 
 static void	update_player(t_game *game)
