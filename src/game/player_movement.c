@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 19:11:27 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/16 22:00:37 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/17 13:32:09 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,10 @@ static void	player_move(t_game *game, double speed, double angle)
 	dy = speed * sin(angle);
 	game->p.pos.x += dx;
 	game->p.pos.y += dy;
-	if (!can_player_move(game, dx, dy))
-	{
-		game->p.pos.x -= dx;
-		game->p.pos.y -= dy;
-	}
+	if (!can_player_move(game, dx, 0))
+		game->p.pos.x -= dy;
+	if (!can_player_move(game, 0, dy))
+		game->p.pos.y -= dx;
 }
 
 static void	update_player(t_game *game)
@@ -108,7 +107,10 @@ void	my_loop(void *param)
 	{
 		printf(ANSI_COLOR_BRIGHT_BLUE"DEBUG 🐞: game->p.pos.y --> -={ %lf }=-\n", game->p.pos.y);
 		printf(ANSI_COLOR_BRIGHT_BLUE "DEBUG 🐞: game->p.pos.x --> -={ %lf }=-\n", game->p.pos.x);
-		printf(ANSI_COLOR_BRIGHT_BLUE"DEBUG 🐞: game->p.die--> -={ %lf }=-\n", game->p.dir);
+		printf(ANSI_COLOR_BRIGHT_BLUE"DEBUG 🐞: game->p.dir --> -={ %lf }=-\n", game->p.dir);
 	}
+	mlx_delete_image(game->mlx, game->img_screen);
+	game->img_screen = mlx_new_image(game->mlx, WIN_X, WIN_Y);
+	mlx_image_to_window(game->mlx, game->img_screen, 0, 0);
 	draw_minimap(game);
 }

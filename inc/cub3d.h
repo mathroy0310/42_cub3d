@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:15:26 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/16 21:36:01 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/17 13:20:10 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,13 @@ typedef enum e_direction
 	EA,
 	NONE
 }						t_direction;
+
+typedef struct s_ray
+{
+	double				angle;
+	double				dist;
+}						t_ray;
+
 
 typedef struct s_vect2u
 {

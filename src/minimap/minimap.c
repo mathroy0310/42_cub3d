@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 19:25:53 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/16 22:08:44 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/17 13:38:27 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,4 +97,5 @@ void	draw_minimap(t_game *game)
 	draw_minimap_floor(game, start_x, start_y, shape);
 	draw_walls_minimap(game, start_x, start_y, shape);
 	draw_player_minimap(game, shape, start_x, start_y);
+	draw_rays_minimap(game, shape, start_x, start_y);
 }

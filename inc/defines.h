@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:19:55 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/16 22:10:26 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/17 13:36:00 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 
 /*	==== PLAYER ==== */
 
-# define PLAYER_MOV_SPEED 0.03
+# define PLAYER_MOV_SPEED 0.08
 # define PLAYER_ROT_SPEED 0.05
 
 # define PLAYER_FOV 60
@@ -50,10 +50,10 @@
 #  define M_PI 3.14159265358979323846
 # endif
 # ifndef M_PI_2
-#  define M_PI_2 1.57079632679489661923
+#  define M_PI_2 (M_PI / 2)
 # endif
 
-# define M_PI_PI 6.28318530717958647692
+# define M_PI_PI (M_PI + M_PI)
 
 # define ERR_PROMPT "ERROR ❌: "
 

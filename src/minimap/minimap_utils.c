@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 21:35:21 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/16 21:50:30 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/17 13:31:59 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	rect(mlx_image_t *img, t_shape shape, t_color color)
 		j = shape.x;
 		while (j < shape.x + shape.width && j < img->height)
 		{
-			// printf("[INFO] minimap pixel coord : i: %d, j: %d\n", i, j);
+			//printf("[DEBUG] minimap pixel coord : i: %d, j: %d\n", i, j);
 			mlx_put_pixel(img, i, j, color);
 			++j;
 		}
