@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 19:25:53 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/17 16:43:11 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/17 17:38:32 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,29 +114,47 @@ void	draw_line(t_game *game, t_vect2u p1, t_vect2u p2)
 
 void	draw_rays_minimap(t_game *game, int sx, int sy)
 {
+	t_vect2u p2[RAY_NB];
 	t_vect2u p1;
-	t_vect2u p2;
 
+	int i;
+	i = 0;
+	//double j = 0;
 	p1.x = (uint32_t)(game->p.pos.y * MINISIDE + sx);
 	p1.y = (uint32_t)(game->p.pos.x * MINISIDE + sy);
-
-	double angle = game->p.dir;
-
-	p2.y = p1.y + (int)(cos(angle) * 100);
-	p2.x = p1.x + (int)(sin(angle) * 100);
-
-	if (DEBUG_MODE)
+	double j = -0.5;
+	while (i < RAY_NB && j < 0.5)
 	{
-		printf("DEBUG 🐞: p1.x --> -={ %d }=-\n", p1.x);
-		printf("DEBUG 🐞: p1.y --> -={ %d }=-\n", p1.y);
-
-		printf("DEBUG 🐞: p2.x --> -={ %d }=-\n", p2.x);
-		printf("DEBUG 🐞: p2.y --> -={ %d }=-\n", p2.y);
-
-		printf("DEBUG 🐞: angle --> -={ %lf }=-\n\n", angle);
+		p2[i].x = (uint32_t)(p1.x + sin(game->p.dir + j) * 100);
+		p2[i].y = (uint32_t)(p1.y + cos(game->p.dir + j) * 100);
+		draw_line(game, p1, p2[i]);
+		j += 0.1;
+		i++;
 	}
+	
+	// t_vect2u p2;
+	// t_vect2u p1;
+	
+	// double j = game->p.dir - 0.5;
+	// p1.x = (uint32_t)(game->p.pos.y * MINISIDE + sx);
+	// p1.y = (uint32_t)(game->p.pos.x * MINISIDE + sy);
+	// while (j < (game->p.dir + 0.5))
+	// {
+	// 	p2.x = (uint32_t)(p1.x + cos(game->p.dir + j) * 100);
+	// 	p2.y = (uint32_t)(p1.y + sin(game->p.dir + j) * 100);
+	// 	draw_line(game, p1, p2);
+	// 	j += (0.1);
+	// }
 
-	draw_line(game, p1, p2);
+	// if (DEBUG_MODE)
+	// {
+	// 	printf("DEBUG 🐞: p1.x --> -={ %d }=-\n", p1.x);
+	// 	printf("DEBUG 🐞: p1.y --> -={ %d }=-\n", p1.y);
+		
+	// 	printf("DEBUG 🐞: p2.x --> -={ %d }=-\n", p2[i].x);
+	// 	printf("DEBUG 🐞: p2.y --> -={ %d }=-\n", p2[i].y);
+	// }
+
 }
 
 void	draw_minimap(t_game *game)
@@ -155,7 +173,7 @@ void	draw_minimap(t_game *game)
 	start_y = game->img_screen->width - (game->map_w * MINISIDE + MINIPAD);
 	start_x = game->img_screen->height - (game->map_h * MINISIDE + MINIPAD + 6);
 	draw_minimap_floor(game, start_x, start_y, shape);
+	draw_rays_minimap(game, start_x, start_y);
 	draw_walls_minimap(game, start_x, start_y, shape);
 	draw_player_minimap(game, shape, start_x, start_y);
-	draw_rays_minimap(game, start_x, start_y);
 }
