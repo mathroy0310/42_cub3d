@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 01:41:59 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/17 17:31:00 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/17 18:29:38 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,29 +113,6 @@ static inline void	set_player_initial_pos(t_game *game)
 		game->p.dir = 0.5 * M_PI;
 	game->map[y][x] = '0';
 }
-
-// void	my_keyhook(mlx_key_data_t keydata, void *param)
-// {
-// 	t_game	*game;
-
-// 	game = param;
-// 	// if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_RELEASE)
-// 	// 	destroy_game(game, true);
-// 	// if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_RELEASE)
-// 	// 	printf("ESCAPE\n");
-// 	// if ((keydata.key == MLX_KEY_W) && (keydata.action == MLX_REPEAT
-// 	// 		|| keydata.action == MLX_PRESS))
-// 	// 	game->img_player->instances[0].y -= PLAYER_SPEED;
-// 	// if ((keydata.key == MLX_KEY_S) && (keydata.action == MLX_REPEAT
-// 	// 		|| keydata.action == MLX_PRESS))
-// 	// 	game->img_player->instances[0].y += PLAYER_SPEED;
-// 	// if ((keydata.key == MLX_KEY_D) && (keydata.action == MLX_REPEAT
-// 	// 		|| keydata.action == MLX_PRESS))
-// 	// 	game->img_player->instances[0].x += PLAYER_SPEED;
-// 	// if ((keydata.key == MLX_KEY_A) && (keydata.action == MLX_REPEAT
-// 	// 		|| keydata.action == MLX_PRESS))
-// 	// 	game->img_player->instances[0].x -= PLAYER_SPEED;
-// }
 
 char	*init_graphics(t_cub_file *cub, t_game *game)
 {

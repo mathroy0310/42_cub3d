@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:15:26 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/17 17:29:51 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/17 19:30:37 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,6 @@ typedef enum e_direction
 	NONE
 }						t_direction;
 
-typedef struct s_ray
-{
-	double				angle;
-	double				dist;
-}						t_ray;
-
-
 typedef struct s_vect2u
 {
 	uint32_t			x;
@@ -63,6 +56,22 @@ typedef struct s_vect2d
 	double				x;
 	double				y;
 }						t_vect2d;
+
+typedef struct s_vect3d
+{
+	double				x;
+	double				y;
+	double				z;
+}						t_vect3d;
+
+typedef struct s_ray
+{
+	double				angle_rel;
+	double				angle_abs;
+	double				wall_dist;
+	t_direction			wall_dir;
+	t_vect2d			wall_hit;
+}						t_ray;
 
 typedef struct s_player
 {
@@ -88,14 +97,15 @@ typedef struct s_game
 	int					map_h;
 	mlx_t				*mlx;
 	mlx_image_t			*img_screen;
-	mlx_image_t *img_player; // a enlever
 }						t_game;
 
 int						get_rgba(int r, int g, int b, int a);
-void					draw_minimap(t_game *game);
+void					draw_minimap(t_game *game, t_ray *rays);
 
 void					my_keyhook(mlx_key_data_t keydata, void *param);
 void					my_loop(void *param);
+
+void					update_player(t_game *game);
 
 char					*init_game(t_cub_file *cub, t_game *game);
 void					destroy_game(t_game *game, bool quit);
@@ -112,7 +122,9 @@ void					debug_print_msg(char *msg);
 /// @param arg2 the second argument or NULL if format is 'd' or 'i' or 'u'
 void					debug_print_number(char *msg, int format, int arg,
 							double arg2);
+void					debug_print_ray(t_ray *ray, int i);
 
+void					ray_casting(t_game *game, t_ray *rays);
 void					debug_print_map(t_game *game);
 void					debug_print_colors(char *cat, t_vect3 color);
 

@@ -6,24 +6,11 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 19:11:27 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/17 15:06:03 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/17 18:30:41 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static inline bool	is_player_moving(t_player *p)
-{
-	static bool	first_run = true;
-
-	if (first_run)
-	{
-		first_run = false;
-		return (true);
-	}
-	return (p->move_no || p->move_so || p->move_we || p->move_ea || p->rotate_l
-		|| p->rotate_r);
-}
 
 static inline bool	is_moving_diagonal(t_game *game)
 {
@@ -80,7 +67,7 @@ static void	player_move(t_game *game, double speed, double angle)
 	}
 }
 
-static void	update_player(t_game *game)
+void	update_player(t_game *game)
 {
 	if (game->p.rotate_l)
 		player_rotate(game, -PLAYER_ROT_SPEED);
@@ -94,24 +81,4 @@ static void	update_player(t_game *game)
 		player_move(game, PLAYER_MOV_SPEED, -M_PI_2);
 	if (game->p.move_ea)
 		player_move(game, PLAYER_MOV_SPEED, M_PI_2);
-}
-
-void	my_loop(void *param)
-{
-	t_game	*game;
-
-	game = param;
-	if (!is_player_moving(&game->p))
-		return ;
-	update_player(game);
-	if (DEBUG_MODE)
-	{
-		printf(ANSI_COLOR_BRIGHT_BLUE"DEBUG 🐞: game->p.pos.y --> -={ %lf }=-\n", game->p.pos.y);
-		printf(ANSI_COLOR_BRIGHT_BLUE "DEBUG 🐞: game->p.pos.x --> -={ %lf }=-\n", game->p.pos.x);
-		printf(ANSI_COLOR_BRIGHT_BLUE"DEBUG 🐞: game->p.dir --> -={ %lf }=-\n", game->p.dir);
-	}
-	mlx_delete_image(game->mlx, game->img_screen);
-	game->img_screen = mlx_new_image(game->mlx, WIN_X, WIN_Y);
-	mlx_image_to_window(game->mlx, game->img_screen, 0, 0);
-	draw_minimap(game);
 }

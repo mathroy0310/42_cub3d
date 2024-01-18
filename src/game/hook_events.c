@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   key_hook.c                                         :+:      :+:    :+:   */
+/*   hook_events.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 19:42:00 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/16 21:34:29 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/17 19:30:48 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,39 @@ void	my_keyhook(mlx_key_data_t keydata, void *param)
 	game = param;
 	on_key_press(keydata, game);
 	on_key_release(keydata, game);
+}
+
+static inline bool	is_player_moving(t_player *p)
+{
+	static bool	first_run = true;
+
+	if (first_run)
+	{
+		first_run = false;
+		return (true);
+	}
+	return (p->move_no || p->move_so || p->move_we || p->move_ea || p->rotate_l
+		|| p->rotate_r);
+}
+
+void	my_loop(void *param)
+{
+	static t_ray	rays[RAYS_NB];
+	t_game	*game;
+
+	game = param;
+	if (!is_player_moving(&game->p))
+		return ;
+	update_player(game);
+	if (DEBUG_MODE)
+	{
+		printf(ANSI_COLOR_BRIGHT_BLUE"DEBUG 🐞: game->p.pos.y --> -={ %lf }=-\n", game->p.pos.y);
+		printf(ANSI_COLOR_BRIGHT_BLUE "DEBUG 🐞: game->p.pos.x --> -={ %lf }=-\n", game->p.pos.x);
+		printf(ANSI_COLOR_BRIGHT_BLUE"DEBUG 🐞: game->p.dir --> -={ %lf }=-\n", game->p.dir);
+	}
+	mlx_delete_image(game->mlx, game->img_screen);
+	ray_casting(game, rays);
+	game->img_screen = mlx_new_image(game->mlx, WIN_X, WIN_Y);
+	mlx_image_to_window(game->mlx, game->img_screen, 0, 0);
+	draw_minimap(game, rays);
 }

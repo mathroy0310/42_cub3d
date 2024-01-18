@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 21:35:21 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/17 13:31:59 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/17 19:32:44 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,23 @@ void	circle(mlx_image_t *img, t_shape s, t_color color)
 		}
 		++i;
 	}
+}
+
+void	draw_line_angle(mlx_image_t *img, t_vect2d start, t_vect2d end, double angle)
+{
+	double x;
+	double y;
+	int pixels;
+
+	x  =cos(angle);
+	y = sin(angle);
+	pixels = round(sqrt(pow(end.x - start.x, 2) + pow(end.y - start.y, 2))) + 2;
+	while (pixels && start.x > 0 && start.y > 0 && start.x < img->width && start.y < img->height)
+	{
+		mlx_put_pixel(img, start.x, start.y, MINI_COLOR_RAY);
+		start.x += x;
+		start.y += y;
+		--pixels;
+	}
+	
 }

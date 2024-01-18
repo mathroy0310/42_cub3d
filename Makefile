@@ -6,7 +6,7 @@
 #    By: maroy <maroy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/21 16:01:23 by maroy             #+#    #+#              #
-#    Updated: 2024/01/16 21:38:27 by maroy            ###   ########.fr        #
+#    Updated: 2024/01/17 19:18:57 by maroy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRC_MAIN_DIR		= src
 SRC_PARSING_DIR 	= 	$(SRC_MAIN_DIR)/parsing
 SRC_GAME_DIR		=	$(SRC_MAIN_DIR)/game
 SRC_MINIMAP_DIR		=	$(SRC_MAIN_DIR)/minimap
+SRCS_RAYCASTING_DIR =	$(SRC_MAIN_DIR)/raycasting
 
 SRCS_MAIN	=	main.c \
 				debug.c
@@ -43,18 +44,21 @@ SRCS_PARSING =  valid.c \
 
 SRCS_GAME 	=	init.c \
 				player_movement.c \
-				key_hook.c \
+				hook_events.c \
 
 SRCS_MINIMAP = 	minimap.c \
 				minimap_utils.c \
+
+SRCS_RAYCASTING = raycasting.c
 
 
 SRC_M = $(addprefix $(SRC_MAIN_DIR)/, $(SRCS_MAIN))
 SRC_P = $(addprefix $(SRC_PARSING_DIR)/, $(SRCS_PARSING))
 SRC_G = $(addprefix $(SRC_GAME_DIR)/, $(SRCS_GAME))
 SRC_MM = $(addprefix $(SRC_MINIMAP_DIR)/, $(SRCS_MINIMAP))
+SRC_RC = $(addprefix $(SRCS_RAYCASTING_DIR)/, $(SRCS_RAYCASTING)) 
 
-SRC		= $(SRC_M) $(SRC_P) $(SRC_G) $(SRC_MM)
+SRC		= $(SRC_M) $(SRC_P) $(SRC_G) $(SRC_MM) $(SRC_RC)
 
 
 BIN     = $(patsubst $(SRC)/%.c,bin/%.o,$(SRC))

@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:19:55 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/17 17:21:43 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/17 18:34:11 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@
 # define WIN_X 900
 # define WIN_Y 700
 
-# define RAY_NB 300
+# define RAYS_NB 300
 
 /*	==== PLAYER ==== */
 
 # define PLAYER_MOV_SPEED 0.1
 # define PLAYER_ROT_SPEED 0.05
 
-# define PLAYER_FOV 60
+# define PLAYER_FOV 70
 
 /* === MINIMAP === */
 

@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 02:51:54 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/16 21:39:07 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/17 19:15:21 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,22 @@ void	debug_print_msg(char *msg)
 		printf(ANSI_COLOR_BRIGHT_BLUE "DEBUG 🐞: -={ %s }=-", msg);
 		printf(ANSI_COLOR_RESET "\n");
 	}
+}
+
+void	debug_print_ray(t_ray *ray, int i)
+{
+	if (DEBUG_MODE)
+	{
+		printf(ANSI_COLOR_BRIGHT_BLUE "DEBUG 🐞: -={ ray : {%d} }=-\n", i);
+		printf(ANSI_COLOR_BRIGHT_BLUE "DEBUG 🐞: -={ ray->angle_rel : {%lf} }=-\n", ray->angle_rel);
+		printf(ANSI_COLOR_BRIGHT_BLUE "DEBUG 🐞: -={ ray->angle_abs : {%lf} }=-\n", ray->angle_abs);
+		printf(ANSI_COLOR_BRIGHT_BLUE "DEBUG 🐞: -={ ray->wall_dist : {%lf} }=-\n", ray->wall_dist);
+		printf(ANSI_COLOR_BRIGHT_BLUE "DEBUG 🐞: -={ ray->wall_hit.y : {%f} }=-\n", ray->wall_hit.y);
+		printf(ANSI_COLOR_BRIGHT_BLUE "DEBUG 🐞: -={ ray->wall_hit.x : {%f} }=-\n", ray->wall_hit.x);
+		
+		
+	}
+
 }
 
 void	debug_print_number(char *msg, int format, int arg, double arg2)
