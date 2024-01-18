@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 19:25:53 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/17 22:54:35 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/18 16:18:14 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,27 @@ static void	draw_player_minimap(t_game *game, t_shape s, int sx, int sy)
 
 // }
 
+// void	draw_floor_ceiling(t_game *game, t_shape shape, t_color color)
+// {
+// 	int	y;
+// 	int	x;
+
+// 	y = 0;
+// 	x = 0;
+// 	while (y < game->map_h)
+// 	{
+// 		x = 0;
+// 		while (x < game->map_w)
+// 		{
+// 			shape.x = y * MINISIDE + MINIPAD;
+// 			shape.y = x * MINISIDE + MINIPAD;
+// 			rect(game->img_screen, shape, color);
+// 			x++;
+// 		}
+// 		y++;
+// 	}
+// }
+
 void	draw_rays_minimap(t_game *game, t_ray *rays, int sx, int sy)
 {
 	t_vect2d	line_start;
@@ -163,9 +184,11 @@ void	draw_minimap(t_game *game, t_ray *rays)
 	t_shape shape;
 	int start_y;
 	int start_x;
-
 	if (!game->is_minimap)
+	{
+		printf("allo\n");
 		return ;
+	}
 	if (DEBUG_MODE)
 		printf("DEBUG 🐞: drawing_minimap\n");
 	shape.x = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 01:41:59 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/17 18:29:38 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/18 16:23:53 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,14 +122,11 @@ char	*init_graphics(t_cub_file *cub, t_game *game)
 	game->img_screen = mlx_new_image(game->mlx, WIN_X, WIN_Y);
 	if (!game->img_screen)
 		return (WINDOW_INIT);
-	game->color_c = get_rgba(cub->color_c.r, cub->color_c.g, cub->color_c.b, 0);
-	game->color_f = get_rgba(cub->color_f.r, cub->color_f.g, cub->color_f.b, 0);
+	game->color_c = get_rgba(cub->color_c.r, cub->color_c.g, cub->color_c.b, 255);
+	game->color_f = get_rgba(cub->color_f.r, cub->color_f.g, cub->color_f.b, 255);
 	mlx_image_to_window(game->mlx, game->img_screen, 0, 0);
 	mlx_loop_hook(game->mlx, &my_loop, game);
 	mlx_key_hook(game->mlx, &my_keyhook, game);
-	if ((game->map_w * (uint32_t)MINISIDE < game->img_screen->width)
-		&& (game->map_h * (uint32_t)MINISIDE < game->img_screen->height))
-		game->is_minimap = true;
 	mlx_loop(game->mlx);
 	return (NULL);
 }
@@ -142,6 +139,10 @@ char	*init_game(t_cub_file *cub, t_game *game)
 		return (MALLOC_CHARMAP);
 	game->map_w = max_list_str_len(cub->raw_map);
 	game->map_h = ft_lstsize(cub->raw_map);
+	game->is_minimap = false;
+	if (((u_int32_t)(game->map_w * MINISIDE) < WIN_X)
+		&& ((u_int32_t)(game->map_h * MINISIDE) < WIN_Y))
+		game->is_minimap = true;
 	debug_print_map(game);
 	set_player_initial_pos(game);
 	return (init_graphics(cub, game));

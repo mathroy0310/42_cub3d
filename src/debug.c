@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 02:51:54 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/17 19:15:21 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/18 15:06:06 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	debug_print_ray(t_ray *ray, int i)
 		printf(ANSI_COLOR_BRIGHT_BLUE "DEBUG 🐞: -={ ray->wall_dist : {%lf} }=-\n", ray->wall_dist);
 		printf(ANSI_COLOR_BRIGHT_BLUE "DEBUG 🐞: -={ ray->wall_hit.y : {%f} }=-\n", ray->wall_hit.y);
 		printf(ANSI_COLOR_BRIGHT_BLUE "DEBUG 🐞: -={ ray->wall_hit.x : {%f} }=-\n", ray->wall_hit.x);
-		
+		printf(ANSI_COLOR_BRIGHT_BLUE "DEBUG 🐞: -={ ray->dir : {%d} }=-\n", ray->wall_dir);
 		
 	}
 

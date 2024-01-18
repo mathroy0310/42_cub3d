@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   hook_events.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 19:42:00 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/17 23:02:49 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/18 18:45:04 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void		rect(mlx_image_t *img, t_shape shape, t_color color);
+void	rect_fade(mlx_image_t *img, t_shape shape, t_color color);
 
 static void	on_key_press(mlx_key_data_t keydata, t_game *game)
 {
@@ -74,11 +77,24 @@ static inline bool	is_player_moving(t_player *p)
 		|| p->rotate_r);
 }
 
+void	draw_floor_ceiling(t_game *game)
+{
+	t_shape	shape;
+	
+	shape.x = 0;
+	shape.y = 0;
+	shape.width = WIN_Y / 2;
+	shape.height = WIN_X;
+	rect_fade(game->img_screen, shape, game->color_c);
+	shape.x = WIN_Y / 2;
+	rect_fade(game->img_screen, shape, game->color_f);
+}
+
 void	my_loop(void *param)
 {
 	static t_ray	rays[RAYS_NB];
 	t_game	*game;
-
+	
 	game = param;
 	if (!is_player_moving(&game->p))
 		return ;
@@ -92,6 +108,7 @@ void	my_loop(void *param)
 	mlx_delete_image(game->mlx, game->img_screen);
 	game->img_screen = mlx_new_image(game->mlx, WIN_X, WIN_Y);
 	ray_casting(game, rays);
+	draw_floor_ceiling(game);
 	draw_minimap(game, rays);
 	mlx_image_to_window(game->mlx, game->img_screen, 0, 0);
 }
