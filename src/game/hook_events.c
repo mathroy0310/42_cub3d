@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 19:42:00 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/17 19:30:48 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/17 23:02:49 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ void	my_loop(void *param)
 		printf(ANSI_COLOR_BRIGHT_BLUE"DEBUG 🐞: game->p.dir --> -={ %lf }=-\n", game->p.dir);
 	}
 	mlx_delete_image(game->mlx, game->img_screen);
-	ray_casting(game, rays);
 	game->img_screen = mlx_new_image(game->mlx, WIN_X, WIN_Y);
-	mlx_image_to_window(game->mlx, game->img_screen, 0, 0);
+	ray_casting(game, rays);
 	draw_minimap(game, rays);
+	mlx_image_to_window(game->mlx, game->img_screen, 0, 0);
 }

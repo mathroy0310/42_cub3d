@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 19:25:53 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/17 19:40:36 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/17 22:54:35 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void		circle(mlx_image_t *img, t_shape s, t_color color);
 void		draw_line_angle(mlx_image_t *img, t_vect2d start, t_vect2d end,
 				double angle);
 
-				
 static void	draw_minimap_floor(t_game *game, int sx, int sy, t_shape shape)
 {
 	int	y;
@@ -74,12 +73,12 @@ static void	draw_player_minimap(t_game *game, t_shape s, int sx, int sy)
 	s.height = s.width;
 	s.x = (uint32_t)(game->p.pos.y * MINISIDE + sx - s.width / 2);
 	s.y = (uint32_t)(game->p.pos.x * MINISIDE + sy - s.height / 2);
-	circle(game->img_screen, s, MINI_COLOR_PLAYER2);
+	rect(game->img_screen, s, MINI_COLOR_PLAYER2);
 	s.width = 6;
 	s.height = s.width;
 	s.x = (uint32_t)(game->p.pos.y * MINISIDE + sx - s.width / 2);
 	s.y = (uint32_t)(game->p.pos.x * MINISIDE + sy - s.height / 2);
-	circle(game->img_screen, s, MINI_COLOR_PLAYER);
+	rect(game->img_screen, s, MINI_COLOR_PLAYER);
 }
 
 // void	draw_line(t_game *game, t_vect2u p1, t_vect2u p2)
