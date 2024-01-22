@@ -6,7 +6,7 @@
 /*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:19:55 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/18 16:14:15 by rmarceau         ###   ########.fr       */
+/*   Updated: 2024/01/22 16:41:08 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,18 @@
 
 # define WIN_TITLE "cub3D"
 
-# define WIN_X 900
-# define WIN_Y 700
+# define WIN_X 1280
+# define WIN_Y 720
 
-# define RAYS_NB 300
+# define RAYS_NB 500
 
 /*	==== PLAYER ==== */
 
-# define PLAYER_MOV_SPEED 0.05
-# define PLAYER_ROT_SPEED 0.03
+# define PLAYER_MOV_SPEED 0.10
+# define PLAYER_ROT_SPEED 0.05
 
 // in radians (0.0 to 2.0)
-# define PLAYER_FOV 1.6
+# define PLAYER_FOV 1.2
 
 /* === MINIMAP === */
 
