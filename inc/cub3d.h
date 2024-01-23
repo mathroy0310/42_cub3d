@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:15:26 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/23 00:57:05 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/23 14:54:26 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ typedef struct s_game
 	int					map_h;
 	mlx_t				*mlx;
 	mlx_image_t			*img_screen;
+	xpm_t				*xpm[NONE];
+	mlx_image_t			*textures[NONE];
 }						t_game;
 
 int						get_rgba(int r, int g, int b, int a);

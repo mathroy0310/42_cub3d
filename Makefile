@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: maroy <maroy@student.42.fr>                +#+  +:+       +#+         #
+#    By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/21 16:01:23 by maroy             #+#    #+#              #
-#    Updated: 2024/01/17 19:18:57 by maroy            ###   ########.fr        #
+#    Updated: 2024/01/23 16:35:14 by rmarceau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ SRCS_PARSING =  valid.c \
 SRCS_GAME 	=	init.c \
 				player_movement.c \
 				hook_events.c \
+				texturing.c \
 
 SRCS_MINIMAP = 	minimap.c \
 				minimap_utils.c \

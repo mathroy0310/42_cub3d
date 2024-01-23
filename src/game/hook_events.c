@@ -4,6 +4,7 @@
 
 void				rect(mlx_image_t *img, t_shape shape, t_color color);
 void				rect_fade(mlx_image_t *img, t_shape shape, t_color color);
+int 				get_texture_x(t_ray ray);
 
 static void	on_key_press(mlx_key_data_t keydata, t_game *game)
 {
@@ -105,6 +106,9 @@ void	draw_walls(t_game *game, t_ray *rays)
 	uint32_t	y;
 	t_color	color;
 
+	int texture_x;
+	int texture_y;
+
 	i = -1;
 	while (++i < RAYS_NB)
 	{
@@ -113,25 +117,48 @@ void	draw_walls(t_game *game, t_ray *rays)
 		rays[i].draw_height = rays[i].wall_height;
 		if (rays[i].draw_height > WIN_Y)
 			rays[i].draw_height = WIN_Y;
+
+		uint32_t top_wall = (WIN_Y - rays[i].draw_height) / 2;
+		uint32_t bottom_wall = top_wall + rays[i].draw_height;
+
+		printf("top_wall: %d\n", top_wall);
+		printf("bottom_wall: %d\n", bottom_wall);
+
 		y = -1;
-		while (++y < (uint32_t)(WIN_Y - rays[i].draw_height) / 2)
+		while (++y < WIN_Y)
 		{
 			x = i * (WIN_X / RAYS_NB) - 1;
+			texture_y = (y - top_wall) * ((float)IMG_SIZE / rays[i].draw_height);
 			while (++x < (i + 1) * (WIN_X / RAYS_NB))
 			{
-				color = game->color_c;
-                darken_color(&color,0.2 + 0.75 *  (1 - (double)y / WIN_Y));
-				// ft_debug_printf("color c = %u" ,color);
-                mlx_put_pixel(game->img_screen, x, y, color);
-
-                color = game->color_f;
-                darken_color(&color,0.2 + 0.75 *( 1 - (double)(WIN_Y - 1 - y) / WIN_Y));
-                // ft_debug_printf("color f = %u" ,color);
-				mlx_put_pixel(game->img_screen, x, WIN_Y - 1 - y, color);
+				texture_x = get_texture_x(rays[i]);
+				if (y < top_wall)
+				{
+					color = game->color_c;
+					darken_color(&color,0.2 + 0.75 *  (1 - (double)y / WIN_Y));
+					// ft_debug_printf("color c = %u" ,color);
+					mlx_put_pixel(game->img_screen, x, y, color);
+				}
+				else if (y >= top_wall && y <= bottom_wall)
+				{
+					// int texture_x = get_texture_x(rays[i]);
+					// int texture_y = (y - top_wall) * ((float)IMG_SIZE / rays[i].draw_height);
+					color = rays[i].wall_dir == NO ? game->textures[NO]->pixels[texture_y * IMG_SIZE + texture_x] : 0xFFFFFFFF;
+					color = rays[i].wall_dir == SO ? game->textures[SO]->pixels[texture_y * IMG_SIZE + texture_x] : 0xFFFFFFFF;
+					color = rays[i].wall_dir == WE ? game->textures[WE]->pixels[texture_y * IMG_SIZE + texture_x] : 0xFFFFFFFF;
+					color = rays[i].wall_dir == EA ? game->textures[EA]->pixels[texture_y * IMG_SIZE + texture_x] : 0xFFFFFFFF;
+					mlx_put_pixel(game->img_screen, x, y, color);
+				}
+				else
+				{
+					color = game->color_f;
+					darken_color(&color,0.2 + 0.75 *( 1 - (double)(WIN_Y - 1 - y) / WIN_Y));
+					// ft_debug_printf("color f = %u" ,color);
+					mlx_put_pixel(game->img_screen, x, y, color);
+				}
 			}
 		}
 	}
-	
 }
 
 // void	draw_walls(t_game *game, t_ray *rays)

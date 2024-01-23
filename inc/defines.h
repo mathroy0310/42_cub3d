@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:19:55 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/23 01:44:08 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/23 16:51:52 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define WIN_X 1280
 # define WIN_Y 720
 
-# define RAYS_NB 1200
+# define RAYS_NB 500
 
 /*	==== PLAYER ==== */
 
@@ -40,6 +40,14 @@
 
 // in radians (0.0 to 2.0)
 # define PLAYER_FOV 1.2
+
+/*	==== TEXTURES ==== */
+# define IMG_SIZE 64
+
+# define TEXTURE_NO "./assets/tex/xpm42/mossy.xpm42"
+# define TEXTURE_SO "./assets/tex/xpm42/redbrick.xpm42"
+# define TEXTURE_WE "./assets/tex/xpm42/greystone.xpm42"
+# define TEXTURE_EA "./assets/tex/xpm42/wood.xpm42"
 
 /* === MINIMAP === */
 
