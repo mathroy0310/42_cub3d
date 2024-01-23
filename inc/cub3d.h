@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:15:26 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/17 19:30:37 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/23 00:57:05 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ typedef struct s_ray
 	double				angle_rel;
 	double				angle_abs;
 	double				wall_dist;
+	int32_t				wall_height;
+	int32_t				draw_height;
 	t_direction			wall_dir;
 	t_vect2d			wall_hit;
 }						t_ray;
@@ -103,6 +105,7 @@ int						get_rgba(int r, int g, int b, int a);
 void					draw_minimap(t_game *game, t_ray *rays);
 
 void					my_keyhook(mlx_key_data_t keydata, void *param);
+void draw_walls(t_game * game, t_ray * rays);
 void					my_loop(void *param);
 
 void					update_player(t_game *game);

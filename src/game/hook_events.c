@@ -2,8 +2,8 @@
 
 #include "cub3d.h"
 
-void		rect(mlx_image_t *img, t_shape shape, t_color color);
-void	rect_fade(mlx_image_t *img, t_shape shape, t_color color);
+void				rect(mlx_image_t *img, t_shape shape, t_color color);
+void				rect_fade(mlx_image_t *img, t_shape shape, t_color color);
 
 static void	on_key_press(mlx_key_data_t keydata, t_game *game)
 {
@@ -47,7 +47,7 @@ static void	on_key_release(mlx_key_data_t keydata, t_game *game)
 
 void	my_keyhook(mlx_key_data_t keydata, void *param)
 {
-	t_game *game;
+	t_game	*game;
 
 	game = param;
 	on_key_press(keydata, game);
@@ -70,7 +70,7 @@ static inline bool	is_player_moving(t_player *p)
 void	draw_floor_ceiling(t_game *game)
 {
 	t_shape	shape;
-	
+
 	shape.x = 0;
 	shape.y = 0;
 	shape.width = WIN_Y / 2;
@@ -80,93 +80,148 @@ void	draw_floor_ceiling(t_game *game)
 	rect_fade(game->img_screen, shape, game->color_f);
 }
 
+#define max(a, b) ((a) > (b) ? (a) : (b))
+
+void darken_color(uint32_t *color, double amount)
+{
+    uint8_t r, g, b, a;
+
+    r = (*color >> 24) & 0xFF;
+    g = (*color >> 16) & 0xFF;
+	b = (*color >> 8) & 0xFF;
+    a = *color & 0xFF;
+
+    r = (uint8_t)max(0, r * amount);
+    g = (uint8_t)max(0, g * amount);
+    b = (uint8_t)max(0, b * amount);
+
+    *color = (r << 24) | (g << 16) | (b << 8) | a;
+}
+
 void	draw_walls(t_game *game, t_ray *rays)
 {
 	uint32_t	i;
-	uint32_t	j;
-	uint32_t	slice_height;
-	uint32_t	wall_height = 0;
-	uint32_t	wall_top;
-	uint32_t	wall_bottom;
-	uint32_t	wall_color;
-	uint32_t	ratio;
-	uint32_t	wall_dist;
-	t_shape		shape;
-	
-	i = 0;
-	j = 0;
-	while (i < WIN_X)
+	uint32_t	x;
+	uint32_t	y;
+	t_color	color;
+
+	i = -1;
+	while (++i < RAYS_NB)
 	{
-		//wall_height = rays[i].wall_dist * cos(rays[i].angle_rel - game->p.dir);
-		if (j == i)
+		rays[i].wall_dist *= cos(game->p.dir - rays[i].angle_abs);
+		rays[i].wall_height = (int32_t)(WIN_Y / rays[i].wall_dist);
+		rays[i].draw_height = rays[i].wall_height;
+		if (rays[i].draw_height > WIN_Y)
+			rays[i].draw_height = WIN_Y;
+		y = -1;
+		while (++y < (uint32_t)(WIN_Y - rays[i].draw_height) / 2)
 		{
-			if (WIN_X % RAYS_NB == 0)
-				ratio = WIN_X / RAYS_NB;
-			else
-				ratio = (WIN_X / RAYS_NB) + 1;
-			j += ratio;
-			printf("j: %d\n", j);
-			printf("WIN_X: %d\n", WIN_X);
-			printf("WIN_Y: %d\n", WIN_Y);
-			printf("rays[i].wall_dist: %lf\n", rays[i].wall_dist);
-			printf("WIN_X / rays[%d].wall_dist: %lf\n", WIN_X / RAYS_NB, WIN_X / rays[i].wall_dist);
-			printf("game->img_screen->width: %d\n", game->img_screen->width);
-			printf("game->img_screen->height: %d\n", game->img_screen->height);
-			wall_dist = rays[i].wall_dist * cos(rays[i].angle_rel - game->p.dir);
-			slice_height = (uint32_t)(WIN_X / rays[i].wall_dist);
-			wall_top = (WIN_Y / 2) - (slice_height / 2);
-			wall_bottom = (WIN_Y / 2) + (slice_height / 2);
-			wall_color = rays[i].wall_dir == NO ? 0x0d1b2aFF : 0xFFFFFFFF;
-			wall_color = rays[i].wall_dir == SO ? 0x1b263bFF : 0xFFFFFFFF;
-			wall_color = rays[i].wall_dir == WE ? 0x415a77FF : 0xFFFFFFFF;
-			wall_color = rays[i].wall_dir == EA ? 0xc0c0c0FF : 0xFFFFFFFF;
-			shape.x = wall_top;
-			if ((int)shape.x < 0)
-				shape.x = 0;
-			shape.width = wall_bottom - wall_top;
-			shape.y = i * (ratio);
-			shape.height = (ratio) * (ratio);
-			rect(game->img_screen, shape, wall_color);
-			printf("wall_height: %d\n", wall_height);
-			printf("wall_top: %d\n", wall_top);
-			printf("wall_bottom: %d\n", wall_bottom);
-			printf("wall_color: %x\n", wall_color);
-			printf("rays[i].wall_dir: %d\n", rays[i].wall_dir);
-			printf("shape.x: %d\n", shape.x);
-			printf("shape.y: %d\n", shape.y);
-			printf("shape.width: %d\n", shape.width);
-			printf("shape.height: %d\n", shape.height);
-			printf("< ---------------------- >\n");
+			x = i * (WIN_X / RAYS_NB) - 1;
+			while (++x < (i + 1) * (WIN_X / RAYS_NB))
+			{
+				color = game->color_c;
+                darken_color(&color,0.2 + 0.75 *  (1 - (double)y / WIN_Y));
+				// ft_debug_printf("color c = %u" ,color);
+                mlx_put_pixel(game->img_screen, x, y, color);
+
+                color = game->color_f;
+                darken_color(&color,0.2 + 0.75 *( 1 - (double)(WIN_Y - 1 - y) / WIN_Y));
+                // ft_debug_printf("color f = %u" ,color);
+				mlx_put_pixel(game->img_screen, x, WIN_Y - 1 - y, color);
+			}
 		}
-		// shape.y = 0;
-		// shape.height = wall_top;
-		// rect(game->img_screen, shape, game->color_c);
-		// shape.y = wall_bottom;
-		// shape.height = WIN_X - wall_bottom;
-		// rect(game->img_screen, shape, game->color_f);
-		++i;
 	}
+	
 }
+
+// void	draw_walls(t_game *game, t_ray *rays)
+// {
+// 	uint32_t	i;
+// 	uint32_t	j;
+// 	uint32_t	slice_height;
+// 	uint32_t	wall_height = 0;
+// 	uint32_t	wall_top;
+// 	uint32_t	wall_bottom;
+// 	uint32_t	wall_color;
+// 	uint32_t	ratio;
+// 	uint32_t	wall_dist;
+// 	t_shape		shape;
+
+// 	(void)wall_dist;
+// 	i = 0;
+// 	j = 0;
+// 	while (i < WIN_X)
+// 	{
+// 		//wall_height = rays[i].wall_dist * cos(rays[i].angle_rel- game->p.dir);
+// 		if (j == i)
+// 		{
+// 			if (WIN_X % RAYS_NB == 0)
+// 				ratio = WIN_X / RAYS_NB;
+// 			else
+// 				ratio = (WIN_X / RAYS_NB) + 1;
+// 			j += ratio;
+// 			// printf("j: %d\n", j);
+// 			// printf("WIN_X: %d\n", WIN_X);
+// 			// printf("WIN_Y: %d\n", WIN_Y);
+// 			// printf("rays[i].wall_dist: %lf\n", rays[i].wall_dist);
+// 			// printf("WIN_X / rays[%d].wall_dist: %lf\n", WIN_X / RAYS_NB,WIN_X / rays[i].wall_dist);
+// 			// printf("game->img_screen->width: %d\n", game->img_screen->width);
+// 			// printf("game->img_screen->height: %d\n",game->img_screen->height);
+// 			wall_dist = rays[i].wall_dist * cos(rays[i].angle_rel- game->p.dir);
+// 			slice_height = (uint32_t)(WIN_X / rays[i].wall_dist);
+// 			wall_top = (WIN_Y / 2) - (slice_height / 2);
+// 			wall_bottom = (WIN_Y / 2) + (slice_height / 2);
+// 			wall_color = rays[i].wall_dir == NO ? 0x0d1b2aFF : 0xFFFFFFFF;
+// 			wall_color = rays[i].wall_dir == SO ? 0x1b263bFF : 0xFFFFFFFF;
+// 			wall_color = rays[i].wall_dir == WE ? 0x415a77FF : 0xFFFFFFFF;
+// 			wall_color = rays[i].wall_dir == EA ? 0xc0c0c0FF : 0xFFFFFFFF;
+// 			shape.x = wall_top;
+// 			if ((int)shape.x < 0)
+// 				shape.x = 0;
+// 			shape.width = wall_bottom - wall_top;
+// 			shape.y = i * (ratio);
+// 			shape.height = (ratio) * (ratio);
+// 			rect(game->img_screen, shape, wall_color);
+// 			// printf("wall_height: %d\n", wall_height);
+// 			// printf("wall_top: %d\n", wall_top);
+// 			// printf("wall_bottom: %d\n", wall_bottom);
+// 			// printf("wall_color: %x\n", wall_color);
+// 			// printf("rays[i].wall_dir: %d\n", rays[i].wall_dir);
+// 			// printf("shape.x: %d\n", shape.x);
+// 			// printf("shape.y: %d\n", shape.y);
+// 			// printf("shape.width: %d\n", shape.width);
+// 			// printf("shape.height: %d\n", shape.height);
+// 			// printf("< ---------------------- >\n");
+// 		}
+// 		// shape.y = 0;
+// 		// shape.height = wall_top;
+// 		// rect(game->img_screen, shape, game->color_c);
+// 		// shape.y = wall_bottom;
+// 		// shape.height = WIN_X - wall_bottom;
+// 		// rect(game->img_screen, shape, game->color_f);
+// 		++i;
+// 	}
+// }
 
 void	my_loop(void *param)
 {
-	static t_ray	rays[RAYS_NB];
-	t_game	*game;
-	
+	static t_ray rays[RAYS_NB];
+	t_game *game;
+
 	game = param;
 	if (!is_player_moving(&game->p))
 		return ;
 	update_player(game);
 	if (DEBUG_MODE)
 	{
-		printf(ANSI_COLOR_BRIGHT_BLUE"DEBUG 🐞: game->p.pos.y --> -={ %lf }=-\n", game->p.pos.y);
-		printf(ANSI_COLOR_BRIGHT_BLUE "DEBUG 🐞: game->p.pos.x --> -={ %lf }=-\n", game->p.pos.x);
-		printf(ANSI_COLOR_BRIGHT_BLUE"DEBUG 🐞: game->p.dir --> -={ %lf }=-\n", game->p.dir);
+		printf(ANSI_COLOR_BRIGHT_BLUE "DEBUG 🐞: game->p.pos.y --> -={%lf }=-\n", game->p.pos.y);
+		printf(ANSI_COLOR_BRIGHT_BLUE "DEBUG 🐞: game->p.pos.x --> -={%lf }=-\n", game->p.pos.x);
+		printf(ANSI_COLOR_BRIGHT_BLUE "DEBUG 🐞: game->p.dir --> -={ %lf }=-\n",game->p.dir);
 	}
 	mlx_delete_image(game->mlx, game->img_screen);
 	game->img_screen = mlx_new_image(game->mlx, WIN_X, WIN_Y);
 	ray_casting(game, rays);
-	draw_floor_ceiling(game);
+	//draw_floor_ceiling(game);
 	draw_walls(game, rays);
 	draw_minimap(game, rays);
 	mlx_image_to_window(game->mlx, game->img_screen, 0, 0);

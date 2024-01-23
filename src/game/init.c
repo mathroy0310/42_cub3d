@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 01:41:59 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/18 16:23:53 by rmarceau         ###   ########.fr       */
+/*   Updated: 2024/01/22 21:08:19 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,8 +140,8 @@ char	*init_game(t_cub_file *cub, t_game *game)
 	game->map_w = max_list_str_len(cub->raw_map);
 	game->map_h = ft_lstsize(cub->raw_map);
 	game->is_minimap = false;
-	if (((u_int32_t)(game->map_w * MINISIDE) < WIN_X)
-		&& ((u_int32_t)(game->map_h * MINISIDE) < WIN_Y))
+	if (((uint32_t)(game->map_w * MINISIDE) < WIN_X)
+		&& ((uint32_t)(game->map_h * MINISIDE) < WIN_Y))
 		game->is_minimap = true;
 	debug_print_map(game);
 	set_player_initial_pos(game);
