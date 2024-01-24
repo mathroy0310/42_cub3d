@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:28:24 by maroy             #+#    #+#             */
-/*   Updated: 2023/11/21 16:09:50 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/24 15:26:29 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,10 @@ char	*parse_cub_file(t_cub_file *cub_file, int fd)
 		if (error)
 			return (error);
 	}
-	if (!check_file_ext(cub_file->no_tex_path, ".xpm")
-		|| !check_file_ext(cub_file->so_tex_path, ".xpm")
-		|| !check_file_ext(cub_file->we_tex_path, ".xpm")
-		|| !check_file_ext(cub_file->ea_tex_path, ".xpm"))
+	if (!check_file_ext(cub_file->no_tex_path, ".xpm42")
+		|| !check_file_ext(cub_file->so_tex_path, ".xpm42")
+		|| !check_file_ext(cub_file->we_tex_path, ".xpm42")
+		|| !check_file_ext(cub_file->ea_tex_path, ".xpm42"))
 		error = PARSER_XPM_EXT;
 	else if (!can_read_file(cub_file->no_tex_path)
 		|| !can_read_file(cub_file->so_tex_path)

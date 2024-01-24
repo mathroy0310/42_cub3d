@@ -6,7 +6,7 @@
 /*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:19:55 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/23 16:51:52 by rmarceau         ###   ########.fr       */
+/*   Updated: 2024/01/24 15:49:54 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define WIN_X 1280
 # define WIN_Y 720
 
-# define RAYS_NB 500
+# define RAYS_NB 1000
 
 /*	==== PLAYER ==== */
 

@@ -6,7 +6,7 @@
 /*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 21:35:21 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/18 18:47:04 by rmarceau         ###   ########.fr       */
+/*   Updated: 2024/01/24 16:15:08 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,17 @@
 int	get_rgba(int r, int g, int b, int a)
 {
 	return (r << 24 | g << 16 | b << 8 | a);
+}
+
+t_vect3 get_color(t_color color)
+{
+	t_vect3 rgb;
+
+	rgb.r = color >> 24;
+	rgb.g = color >> 16;
+	rgb.b = color >> 8;
+
+	return (rgb);
 }
 
 void	rect(mlx_image_t *img, t_shape shape, t_color color)

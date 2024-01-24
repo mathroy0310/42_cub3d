@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:40:08 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/15 13:39:48 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/24 15:36:50 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,9 @@ void	launch_parser(char *filename, t_cub_file *cub)
 
 bool	check_file_ext(char *filename, char *ext)
 {
-	size_t	len;
-
 	if (!filename || !ext)
 		return (false);
-	len = ft_strlen(filename);
-	if (len < ft_strlen(ext) + 1)
-		return (false);
-	if (ft_strcmp(ext, &filename[len - 4]))
+	if (!ft_strequal(ft_strrchr(filename, '.'), ext))
 		return (false);
 	return (true);
 }
