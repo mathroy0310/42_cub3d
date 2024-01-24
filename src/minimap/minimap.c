@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 19:25:53 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/18 16:18:14 by rmarceau         ###   ########.fr       */
+/*   Updated: 2024/01/24 13:41:03 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,86 +80,6 @@ static void	draw_player_minimap(t_game *game, t_shape s, int sx, int sy)
 	s.y = (uint32_t)(game->p.pos.x * MINISIDE + sy - s.height / 2);
 	rect(game->img_screen, s, MINI_COLOR_PLAYER);
 }
-
-// void	draw_line(t_game *game, t_vect2u p1, t_vect2u p2)
-// {
-// 	int	dx;
-// 	int	dy;
-// 	int	sx;
-// 	int	sy;
-// 	int	err;
-// 	int	e2;
-
-// 	dx = ft_abs(p2.x - p1.x);
-// 	dy = -ft_abs(p2.y - p1.y);
-// 	sx = p1.x < p2.x ? 1 : -1;
-// 	sy = p1.y < p2.y ? 1 : -1;
-// 	err = dx + dy;
-// 	while (1)
-// 	{
-// 		mlx_put_pixel(game->img_screen, p1.y, p1.x, MINI_COLOR_RAY);
-// 		if (p1.x == p2.x && p1.y == p2.y)
-// 			break ;
-// 		e2 = 2 * err;
-// 		if (e2 >= dy)
-// 		{
-// 			if (p1.x == p2.x)
-// 				break ;
-// 			err += dy;
-// 			p1.x += sx;
-// 		}
-// 		if (e2 <= dx)
-// 		{
-// 			if (p1.y == p2.y)
-// 				break ;
-// 			err += dx;
-// 			p1.y += sy;
-// 		}
-// 	}
-// }
-
-// void	draw_rays_minimap(t_game *game, int sx, int sy)
-// {
-// 	t_vect2u p2[RAYS_NB];
-// 	t_vect2u p1;
-
-// 	int i;
-// 	i = 0;
-// 	//double j = 0;
-// 	p1.x = (uint32_t)(game->p.pos.y * MINISIDE + sx);
-// 	p1.y = (uint32_t)(game->p.pos.x * MINISIDE + sy);
-// 	double j = -0.523;
-// 	while (i < RAYS_NB && j < 0.523)
-// 	{
-// 		p2[i].x = (uint32_t)(p1.x + sin(game->p.dir + j) * 100);
-// 		p2[i].y = (uint32_t)(p1.y + cos(game->p.dir + j) * 100);
-// 		draw_line(game, p1, p2[i]);
-// 		j += 0.01;
-// 		i++;
-// 	}
-
-// }
-
-// void	draw_floor_ceiling(t_game *game, t_shape shape, t_color color)
-// {
-// 	int	y;
-// 	int	x;
-
-// 	y = 0;
-// 	x = 0;
-// 	while (y < game->map_h)
-// 	{
-// 		x = 0;
-// 		while (x < game->map_w)
-// 		{
-// 			shape.x = y * MINISIDE + MINIPAD;
-// 			shape.y = x * MINISIDE + MINIPAD;
-// 			rect(game->img_screen, shape, color);
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-// }
 
 void	draw_rays_minimap(t_game *game, t_ray *rays, int sx, int sy)
 {

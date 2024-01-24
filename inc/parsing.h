@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:38:49 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/15 20:16:28 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/24 14:41:22 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,6 @@
 
 # include "cub3d.h"
 # include "libft.h"
-# include <stdbool.h>
-# include <stdint.h>
-
-typedef struct s_vect3
-{
-	int		r;
-	int		g;
-	int		b;
-}			t_vect3;
-
-typedef struct s_cub_file
-{
-	char	*no_tex_path;
-	char	*so_tex_path;
-	char	*we_tex_path;
-	char	*ea_tex_path;
-	t_vect3	color_f;
-	t_vect3	color_c;
-	t_list	*raw_map;
-}			t_cub_file;
 
 void		first_arg_checks(int argc, char **argv);
 void		launch_parser(char *filename, t_cub_file *cub);

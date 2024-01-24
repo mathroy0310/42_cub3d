@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:28:24 by maroy             #+#    #+#             */
-/*   Updated: 2023/11/21 16:09:50 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/24 18:50:20 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 void	init_cub_file_data(t_cub_file *cub)
 {
-	cub->no_tex_path = NULL;
-	cub->so_tex_path = NULL;
-	cub->we_tex_path = NULL;
-	cub->ea_tex_path = NULL;
+	int i;
+	
+	i = -1;
+	while (++i < NONE)
+		cub->tex_path[i] = NULL;
 	cub->color_c.r = -1;
 	cub->color_c.g = -1;
 	cub->color_c.b = -1;
@@ -31,14 +32,14 @@ void	free_cub_data(t_cub_file *cub)
 {
 	if (!cub)
 		return ;
-	if (cub->no_tex_path)
-		free(cub->no_tex_path);
-	if (cub->so_tex_path)
-		free(cub->so_tex_path);
-	if (cub->we_tex_path)
-		free(cub->we_tex_path);
-	if (cub->ea_tex_path)
-		free(cub->ea_tex_path);
+	int i;
+	
+	i = -1;
+	while (++i < NONE)
+	{
+		if (cub->tex_path[i])
+			free(cub->tex_path[i]);
+	}	
 	ft_lstclear(&cub->raw_map, free);
 }
 
@@ -107,16 +108,20 @@ char	*parse_cub_file(t_cub_file *cub_file, int fd)
 		if (error)
 			return (error);
 	}
-	if (!check_file_ext(cub_file->no_tex_path, ".xpm")
-		|| !check_file_ext(cub_file->so_tex_path, ".xpm")
-		|| !check_file_ext(cub_file->we_tex_path, ".xpm")
-		|| !check_file_ext(cub_file->ea_tex_path, ".xpm"))
-		error = PARSER_XPM_EXT;
-	else if (!can_read_file(cub_file->no_tex_path)
-		|| !can_read_file(cub_file->so_tex_path)
-		|| !can_read_file(cub_file->we_tex_path)
-		|| !can_read_file(cub_file->ea_tex_path))
-		error = PARSER_XPM_OPN;
+	
+	int i;
+	
+	i = -1;
+	while (++i < NONE)
+	{
+		if (!(check_file_ext(cub_file->tex_path[i], ".xpm42") || check_file_ext(cub_file->tex_path[i], ".png")))
+			error = PARSER_XPM_EXT;
+		else if(!can_read_file(cub_file->tex_path[i]))
+			error = PARSER_XPM_OPN;
+		if (error)
+			break;
+	}
+	
 	if (!error)
 		error = check_cub_map(make_char_map(cub_file->raw_map));
 	if (error)

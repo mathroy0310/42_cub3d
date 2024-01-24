@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+         #
+#    By: maroy <maroy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/21 16:01:23 by maroy             #+#    #+#              #
-#    Updated: 2024/01/23 16:35:14 by rmarceau         ###   ########.fr        #
+#    Updated: 2024/01/24 14:37:52 by maroy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRC_PARSING_DIR 	= 	$(SRC_MAIN_DIR)/parsing
 SRC_GAME_DIR		=	$(SRC_MAIN_DIR)/game
 SRC_MINIMAP_DIR		=	$(SRC_MAIN_DIR)/minimap
 SRCS_RAYCASTING_DIR =	$(SRC_MAIN_DIR)/raycasting
+SRC_GRAPHICS_DIR	=	$(SRC_MAIN_DIR)/graphics
 
 SRCS_MAIN	=	main.c \
 				debug.c
@@ -45,21 +46,23 @@ SRCS_PARSING =  valid.c \
 SRCS_GAME 	=	init.c \
 				player_movement.c \
 				hook_events.c \
-				texturing.c \
+				
 
 SRCS_MINIMAP = 	minimap.c \
 				minimap_utils.c \
 
-SRCS_RAYCASTING = raycasting.c
+SRCS_RAYCASTING = raycasting.c \
+				
 
+SRCS_GRAPHICS =	draw.c \
+  				texturing.c \
 
-SRC_M = $(addprefix $(SRC_MAIN_DIR)/, $(SRCS_MAIN))
-SRC_P = $(addprefix $(SRC_PARSING_DIR)/, $(SRCS_PARSING))
-SRC_G = $(addprefix $(SRC_GAME_DIR)/, $(SRCS_GAME))
-SRC_MM = $(addprefix $(SRC_MINIMAP_DIR)/, $(SRCS_MINIMAP))
-SRC_RC = $(addprefix $(SRCS_RAYCASTING_DIR)/, $(SRCS_RAYCASTING)) 
-
-SRC		= $(SRC_M) $(SRC_P) $(SRC_G) $(SRC_MM) $(SRC_RC)
+SRC += $(addprefix $(SRC_MAIN_DIR)/, $(SRCS_MAIN))
+SRC += $(addprefix $(SRC_PARSING_DIR)/, $(SRCS_PARSING))
+SRC += $(addprefix $(SRC_GAME_DIR)/, $(SRCS_GAME))
+SRC += $(addprefix $(SRC_MINIMAP_DIR)/, $(SRCS_MINIMAP))
+SRC += $(addprefix $(SRCS_RAYCASTING_DIR)/, $(SRCS_RAYCASTING)) 
+SRC += $(addprefix $(SRC_GRAPHICS_DIR)/, $(SRCS_GRAPHICS))
 
 
 BIN     = $(patsubst $(SRC)/%.c,bin/%.o,$(SRC))

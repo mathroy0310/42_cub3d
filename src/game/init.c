@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 01:41:59 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/23 16:42:45 by rmarceau         ###   ########.fr       */
+/*   Updated: 2024/01/24 14:38:13 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-bool load_textures(t_game *game);
 
 int	max_list_str_len(t_list *lst)
 {
@@ -126,13 +124,11 @@ char	*init_graphics(t_cub_file *cub, t_game *game)
 		return (WINDOW_INIT);
 	game->color_c = get_rgba(cub->color_c.r, cub->color_c.g, cub->color_c.b, 255);
 	game->color_f = get_rgba(cub->color_f.r, cub->color_f.g, cub->color_f.b, 255);
-	if (!load_textures(game))
-		return (MALLOC_TEXTURE);
 	mlx_image_to_window(game->mlx, game->img_screen, 0, 0);
 	mlx_loop_hook(game->mlx, &my_loop, game);
 	mlx_key_hook(game->mlx, &my_keyhook, game);
 	mlx_loop(game->mlx);
-	return (NULL);
+	return (load_textures(cub , game));
 }
 
 char	*init_game(t_cub_file *cub, t_game *game)

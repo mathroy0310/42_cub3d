@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 18:12:41 by maroy             #+#    #+#             */
-/*   Updated: 2023/11/21 16:09:45 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/24 18:46:22 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ static bool	ready_to_parse_map(t_cub_file *cub)
 	bool	textures_ready;
 	bool	colors_ready;
 
-	textures_ready = (cub->no_tex_path && cub->so_tex_path && cub->we_tex_path
-			&& cub->ea_tex_path);
+	textures_ready = (cub->tex_path[NO] && cub->tex_path[SO] && cub->tex_path[WE]
+			&& cub->tex_path[EA]);
 	colors_ready = (cub->color_f.r >= 0 && cub->color_f.g >= 0
 			&& cub->color_f.b >= 0 && cub->color_c.r >= 0 && cub->color_c.g >= 0
 			&& cub->color_c.b >= 0);
@@ -52,7 +52,7 @@ char	*parse_cub_line_map(t_cub_file *cub, char *line)
 
 static char	*apply_colors(t_cub_file *cub, char *cat, char **colors_tab)
 {
-	t_vect3	*color;
+	t_vect3i	*color;
 
 	if ((*cat == 'F' && cub->color_f.r >= 0) || (*cat == 'C'
 			&& cub->color_c.r >= 0))
@@ -77,26 +77,26 @@ char	*parse_cub_line_texture(t_cub_file *cub, char *line)
 
 	dir = NONE;
 	line = ft_skip_chars(line, ' ');
-	if (!ft_strncmp(line, "NO", 2) && !cub->no_tex_path)
+	if (!ft_strncmp(line, "NO", 2) && !cub->tex_path[NO])
 		dir = NO;
-	else if (!ft_strncmp(line, "SO", 2) && !cub->so_tex_path)
+	else if (!ft_strncmp(line, "SO", 2) && !cub->tex_path[SO])
 		dir = SO;
-	else if (!ft_strncmp(line, "WE", 2) && !cub->we_tex_path)
+	else if (!ft_strncmp(line, "WE", 2) && !cub->tex_path[WE])
 		dir = WE;
-	else if (!ft_strncmp(line, "EA", 2) && !cub->ea_tex_path)
+	else if (!ft_strncmp(line, "EA", 2) && !cub->tex_path[EA])
 		dir = EA;
 	line += 2;
 	line = ft_skip_chars(line, ' ');
 	if (*line == 0 || dir == NONE)
 		return (PARSER_TEXTURE_LINE);
 	if (dir == NO)
-		cub->no_tex_path = ft_strdup(line);
+		cub->tex_path[NO] = ft_strdup(line);
 	else if (dir == SO)
-		cub->so_tex_path = ft_strdup(line);
+		cub->tex_path[SO] = ft_strdup(line);
 	else if (dir == WE)
-		cub->we_tex_path = ft_strdup(line);
+		cub->tex_path[WE] = ft_strdup(line);
 	else if (dir == EA)
-		cub->ea_tex_path = ft_strdup(line);
+		cub->tex_path[EA] = ft_strdup(line);
 	return (NULL);
 }
 

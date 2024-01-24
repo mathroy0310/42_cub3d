@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 02:51:54 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/18 15:06:06 by rmarceau         ###   ########.fr       */
+/*   Updated: 2024/01/24 14:43:22 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	debug_print_number(char *msg, int format, int arg, double arg2)
 	}
 }
 
-void	debug_print_colors(char *cat, t_vect3 color)
+void	debug_print_colors(char *cat, t_vect3i color)
 {
 	if (DEBUG_MODE == true)
 	{

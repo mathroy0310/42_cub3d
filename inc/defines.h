@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:19:55 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/23 16:51:52 by rmarceau         ###   ########.fr       */
+/*   Updated: 2024/01/24 18:48:31 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@
 #  define MINIPAD 32
 # endif
 
-# include "MLX42.h"
-
 /*	==== GLOBAL ==== */
 
 # define WIN_TITLE "cub3D"
@@ -31,7 +29,7 @@
 # define WIN_X 1280
 # define WIN_Y 720
 
-# define RAYS_NB 500
+# define RAYS_NB 250
 
 /*	==== PLAYER ==== */
 
@@ -60,13 +58,6 @@
 
 /*	==== RAYCASTING ==== */
 
-# ifndef M_PY
-#  define M_PI 3.14159265358979323846
-# endif
-# ifndef M_PI_2
-#  define M_PI_2 (M_PI / 2)
-# endif
-
 # define M_PI_PI (M_PI + M_PI)
 
 # define ERR_PROMPT "ERROR ❌: "
@@ -76,7 +67,7 @@
 # define PARSER_ARG_NB "Wrong number of arguments"
 # define PARSER_ARG_EXT "Wrong file extension"
 # define PARSER_ARG_OPEN "Cannot open file or is empty"
-# define PARSER_XPM_EXT "All texture files must have XPM extension"
+# define PARSER_XPM_EXT "All texture files must have XPM42 or PNG extension"
 # define PARSER_XPM_OPN "Cannot open one of the texture files"
 # define PARSER_LINE_FMT "A line is not correctly formatted"
 # define PARSER_MAP_NOT_RDY "Not enough information before parsing map"
@@ -105,6 +96,8 @@
 /*	==== GAME AND GRAPHICS MESSAGES ==== */
 # define GRAPHICS_INIT "MinilibX initialization failed"
 # define WINDOW_INIT "Cannot create new window"
+# define XMP_LOAD "Loading xpm file failed"
+# define TEX_LOAD "Converting texture to image failed"
 
 /*  ==== COLOR CODES  ==== */
 
