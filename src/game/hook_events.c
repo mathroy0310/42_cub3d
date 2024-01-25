@@ -171,7 +171,7 @@ void draw_walls(t_game *game, t_ray *rays)
 	(void)game;
 	int	x = -1;
 	int	y = -1;
-	t_color	color;
+	t_color	color = 0xFFFFFFFF;
 	
 	double spacing;
 	if (WIN_X % RAYS_NB == 0)
@@ -207,57 +207,45 @@ void draw_walls(t_game *game, t_ray *rays)
 					mlx_put_pixel(game->img_screen, x, y, color);
 				}
 				else if (y >= top_wall && y <= bottom_wall)
-				{
-					//printf("game->textures[NO]->pixels: %s\n", game->textures[NO]->pixels);
-					int texture_x = get_texture_x(rays[i]);
+				{	int texture_x = get_texture_x(rays[i]);
 					int texture_y = (y - top_wall) * ((float)IMG_SIZE / rays[i].draw_height);
-					int tx = texture_x * game->xpm[NO]->texture.bytes_per_pixel;
-					int ty = texture_y * IMG_SIZE;
 					//printf("tx: %d\n", texture_x);
 					//printf("ty: %d\n", texture_y);
 					if (rays[i].wall_dir == NO)
 					{
+						//unsigned int line_length = game->xpm[NO]->texture.bytes_per_pixel * IMG_SIZE;
 						t_vect3 color_vect;
-						color_vect.r = game->xpm[NO]->texture.pixels[ty + tx];
-						color_vect.g = game->xpm[NO]->texture.pixels[(texture_y * IMG_SIZE + texture_x * game->xpm[NO]->texture.bytes_per_pixel + 1)];
-						color_vect.b = game->xpm[NO]->texture.pixels[(texture_y * IMG_SIZE + texture_x * game->xpm[NO]->texture.bytes_per_pixel + 2)];
-						int alpha = game->xpm[NO]->texture.pixels[(texture_y * IMG_SIZE + texture_x * game->xpm[NO]->texture.bytes_per_pixel + 3)];
+						color_vect.r = game->xpm[NO]->texture.pixels[((texture_y / 3) * IMG_SIZE * 2 + (texture_x ) * (game->xpm[NO]->texture.bytes_per_pixel))];
+						color_vect.g = game->xpm[NO]->texture.pixels[((texture_y / 3) * IMG_SIZE * 2 + (texture_x ) * (game->xpm[NO]->texture.bytes_per_pixel) + 1)];
+						color_vect.b = game->xpm[NO]->texture.pixels[((texture_y / 3) * IMG_SIZE * 2 + (texture_x ) * (game->xpm[NO]->texture.bytes_per_pixel) + 2)];
+						int alpha = game->xpm[NO]->texture.pixels[((texture_y / 3) * IMG_SIZE * 2 + (texture_x ) * (game->xpm[NO]->texture.bytes_per_pixel) + 3)];
 						color = get_rgba(color_vect.r, color_vect.g, color_vect.b, alpha);
 					}
 					else if (rays[i].wall_dir == SO)
 					{
 						t_vect3 color_vect;
-						color_vect.r = game->xpm[SO]->texture.pixels[ty + tx];
-						color_vect.g = game->xpm[SO]->texture.pixels[(texture_y * IMG_SIZE + texture_x * game->xpm[SO]->texture.bytes_per_pixel + 1)];
-						color_vect.b = game->xpm[SO]->texture.pixels[(texture_y * IMG_SIZE + texture_x * game->xpm[SO]->texture.bytes_per_pixel + 2)];
-						int alpha = game->xpm[SO]->texture.pixels[(texture_y * IMG_SIZE + texture_x * game->xpm[SO]->texture.bytes_per_pixel + 3)];
+						color_vect.r = game->xpm[SO]->texture.pixels[((texture_y / 2) * IMG_SIZE * 2 + (texture_x ) * (game->xpm[SO]->texture.bytes_per_pixel))];
+						color_vect.g = game->xpm[SO]->texture.pixels[((texture_y / 2) * IMG_SIZE * 2 + (texture_x ) * (game->xpm[SO]->texture.bytes_per_pixel) + 1)];
+						color_vect.b = game->xpm[SO]->texture.pixels[((texture_y / 2) * IMG_SIZE * 2 + (texture_x ) * (game->xpm[SO]->texture.bytes_per_pixel) + 2)];
+						int alpha = game->xpm[SO]->texture.pixels[((texture_y / 2) * IMG_SIZE * 2 + (texture_x ) * (game->xpm[SO]->texture.bytes_per_pixel) + 3)];
 						color = get_rgba(color_vect.r, color_vect.g, color_vect.b, alpha);
 					}
 					else if (rays[i].wall_dir == WE)
 					{
 						t_vect3 color_vect;
-						color_vect.r = game->xpm[WE]->texture.pixels[ty + tx];
-						color_vect.g = game->xpm[WE]->texture.pixels[(texture_y * IMG_SIZE + texture_x * game->xpm[WE]->texture.bytes_per_pixel + 1)];
-						color_vect.b = game->xpm[WE]->texture.pixels[(texture_y * IMG_SIZE + texture_x * game->xpm[WE]->texture.bytes_per_pixel + 2)];
-						int alpha = game->xpm[WE]->texture.pixels[(texture_y * IMG_SIZE + texture_x * game->xpm[WE]->texture.bytes_per_pixel + 3)];
+						color_vect.r = game->xpm[WE]->texture.pixels[((texture_y / 3) * IMG_SIZE * 2 + (texture_x ) * (game->xpm[WE]->texture.bytes_per_pixel))];
+						color_vect.g = game->xpm[WE]->texture.pixels[((texture_y / 3) * IMG_SIZE * 2 + (texture_x ) * (game->xpm[WE]->texture.bytes_per_pixel) + 1)];
+						color_vect.b = game->xpm[WE]->texture.pixels[((texture_y / 3) * IMG_SIZE * 2 + (texture_x ) * (game->xpm[WE]->texture.bytes_per_pixel) + 2)];
+						int alpha = game->xpm[WE]->texture.pixels[((texture_y / 3) * IMG_SIZE * 2 + (texture_x ) * (game->xpm[WE]->texture.bytes_per_pixel) + 3)];
 						color = get_rgba(color_vect.r, color_vect.g, color_vect.b, alpha);
 					}
 					else if (rays[i].wall_dir == EA)
 					{
 						t_vect3 color_vect;
-						color_vect.r = game->xpm[EA]->texture.pixels[ty + tx];
-						color_vect.g = game->xpm[EA]->texture.pixels[(texture_y * IMG_SIZE + texture_x * game->xpm[EA]->texture.bytes_per_pixel + 1)];
-						color_vect.b = game->xpm[EA]->texture.pixels[(texture_y * IMG_SIZE + texture_x * game->xpm[EA]->texture.bytes_per_pixel + 2)];
-						int alpha = game->xpm[EA]->texture.pixels[(texture_y * IMG_SIZE + texture_x * game->xpm[EA]->texture.bytes_per_pixel + 3)];
-						color = get_rgba(color_vect.r, color_vect.g, color_vect.b, alpha);
-					}
-					else if (rays[i].wall_dir == EA)
-					{
-						t_vect3 color_vect;
-						color_vect.r = game->xpm[EA]->texture.pixels[ty + tx];
-						color_vect.g = game->xpm[EA]->texture.pixels[(texture_y * IMG_SIZE + texture_x * game->xpm[EA]->texture.bytes_per_pixel + 1)];
-						color_vect.b = game->xpm[EA]->texture.pixels[(texture_y * IMG_SIZE + texture_x * game->xpm[EA]->texture.bytes_per_pixel + 2)];
-						int alpha = game->xpm[EA]->texture.pixels[(texture_y * IMG_SIZE + texture_x * game->xpm[EA]->texture.bytes_per_pixel + 3)];
+						color_vect.r = game->xpm[EA]->texture.pixels[((texture_y / 3) * IMG_SIZE * 2 + (texture_x ) * (game->xpm[EA]->texture.bytes_per_pixel))];
+						color_vect.g = game->xpm[EA]->texture.pixels[((texture_y / 3) * IMG_SIZE * 2 + (texture_x ) * (game->xpm[EA]->texture.bytes_per_pixel) + 1)];
+						color_vect.b = game->xpm[EA]->texture.pixels[((texture_y / 3) * IMG_SIZE * 2 + (texture_x ) * (game->xpm[EA]->texture.bytes_per_pixel) + 2)];
+						int alpha = game->xpm[EA]->texture.pixels[((texture_y / 3) * IMG_SIZE * 2 + (texture_x ) * (game->xpm[EA]->texture.bytes_per_pixel) + 3)];
 						color = get_rgba(color_vect.r, color_vect.g, color_vect.b, alpha);
 					}
 						
@@ -314,7 +302,7 @@ void draw_walls(t_game *game, t_ray *rays)
 // 			slice_height = (uint32_t)(WIN_X / rays[i].wall_dist);
 // 			wall_top = (WIN_Y / 2) - (slice_height / 2);
 // 			wall_bottom = (WIN_Y / 2) + (slice_height / 2);
-// 			wall_color = rays[i].wall_dir == NO ? 0x0d1b2aFF : 0xFFFFFFFF;
+// 			wall_color = rays[i].wall_dir == EA ? 0x0d1b2aFF : 0xFFFFFFFF;
 // 			wall_color = rays[i].wall_dir == SO ? 0x1b263bFF : 0xFFFFFFFF;
 // 			wall_color = rays[i].wall_dir == WE ? 0x415a77FF : 0xFFFFFFFF;
 // 			wall_color = rays[i].wall_dir == EA ? 0xc0c0c0FF : 0xFFFFFFFF;

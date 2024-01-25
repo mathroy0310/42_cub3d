@@ -21,32 +21,24 @@ bool load_textures(t_cub_file *cub, t_game *game)
 	return (true);
 }
 
-int get_texture_x(t_ray ray)
-{
+// Calculates the x-coordinate on the texture
+int get_texture_x(t_ray ray) {
     double wall_x;
 
-    // Determine the exact point on the wall where the ray hit
+    // Determine the exact position on the wall that the ray has hit
     if (ray.wall_dir == NO || ray.wall_dir == SO)
         wall_x = ray.wall_hit.x;
-    else // for WE or EA
+    else
         wall_x = ray.wall_hit.y;
 
-    // Normalize wall_x to get the exact fractional part
+    // Normalize the value to get the exact position on the texture
     wall_x -= floor(wall_x);
 
-    // Convert this fractional part to a texture coordinate
+    // Scale the position to the texture size
     int tex_x = (int)(wall_x * (double)IMG_SIZE);
 
-    // Adjust texture coordinate based on the wall direction if necessary
-    // For instance, if the wall direction is North or West, you might need to invert the texture
-    if (ray.wall_dir == NO || ray.wall_dir == WE)
-        tex_x = IMG_SIZE - tex_x - 1;
-
-    // Ensure tex_x is within the texture bounds
-    if (tex_x < 0)
-        tex_x = 0;
-    if (tex_x >= IMG_SIZE)
-        tex_x = IMG_SIZE - 1;
+    // Ensure the texture wraps correctly
+    tex_x = tex_x % IMG_SIZE;
 
     return tex_x;
 }
