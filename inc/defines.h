@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:19:55 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/24 18:48:31 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/24 19:34:21 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@
 
 # define WIN_TITLE "cub3D"
 
-# define WIN_X 1280
-# define WIN_Y 720
+# define WIN_X 1920
+# define WIN_Y 1080
 
-# define RAYS_NB 250
+# define RAYS_NB 640
 
 /*	==== PLAYER ==== */
 

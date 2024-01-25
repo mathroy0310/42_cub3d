@@ -6,7 +6,7 @@
 #    By: maroy <maroy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/21 16:01:23 by maroy             #+#    #+#              #
-#    Updated: 2024/01/24 14:37:52 by maroy            ###   ########.fr        #
+#    Updated: 2024/01/24 19:29:16 by maroy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,7 @@ SRCS_RAYCASTING = raycasting.c \
 				
 
 SRCS_GRAPHICS =	draw.c \
+				draw_utils.c \
   				texturing.c \
 
 SRC += $(addprefix $(SRC_MAIN_DIR)/, $(SRCS_MAIN))

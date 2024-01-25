@@ -6,20 +6,11 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 21:35:21 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/24 13:40:54 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/24 19:26:40 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-// documentation MLX42:
-// In order to set each channel's byte we can use bit-shifting operations.
-
-// A function that combines four individual channel bytes into a single integer using bit-shifting looks like this:
-int	get_rgba(int r, int g, int b, int a)
-{
-	return (r << 24 | g << 16 | b << 8 | a);
-}
 
 void	rect(mlx_image_t *img, t_shape shape, t_color color)
 {

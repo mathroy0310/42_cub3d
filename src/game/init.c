@@ -6,11 +6,13 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 01:41:59 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/24 14:38:13 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/24 19:27:36 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	get_rgba(int r, int g, int b, int a);
 
 int	max_list_str_len(t_list *lst)
 {
