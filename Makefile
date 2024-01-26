@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: maroy <maroy@student.42.fr>                +#+  +:+       +#+         #
+#    By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/21 16:01:23 by maroy             #+#    #+#              #
-#    Updated: 2024/01/26 05:49:28 by maroy            ###   ########.fr        #
+#    Updated: 2024/01/26 17:09:02 by rmarceau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME	= cub3d
 
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror -I./inc -std=c99 -O3
+ARGS	= assets/map/map_leak1.cub
 
 LIBFT_DIR = ./libs/libft
 LIBFT = $(LIBFT_DIR)/libft.a
@@ -129,6 +130,10 @@ lclean		:
 fclean		:	clean
 	@${RM} ${NAME}
 	@echo "${RED}${NAME} executable successfully removed 🗑${DEFAULT}"
+
+leaks: all
+	@echo "${YELLOW}Running leaks...${DEFAULT}"
+	@leaks --atExit -- ./${NAME} ${ARGS}
 
 #--- COLORS ---#
 
