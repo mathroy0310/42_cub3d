@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:19:55 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/25 20:35:47 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/26 05:36:01 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@
 
 # define WIN_TITLE "cub3D"
 
-# define WIN_X 1920
-# define WIN_Y 1080
+# define WIN_X 960
+# define WIN_Y 540
 
-# define RAYS_NB 640
+# define RAYS_NB 320
 
 /*	==== PLAYER ==== */
 
@@ -58,6 +58,8 @@
 
 /*	==== RAYCASTING ==== */
 
+# define M_PI 3.14159265358979323846
+# define M_PI_2 (M_PI / 2)
 # define M_PI_PI (M_PI + M_PI)
 
 # define ERR_PROMPT "ERROR ❌: "

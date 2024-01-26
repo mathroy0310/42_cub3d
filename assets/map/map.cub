@@ -1,7 +1,7 @@
-NO assets/tex/bluestone.xpm42
-WE assets/tex/eagle.xpm42
-SO assets/tex/eagle.xpm42
-EA assets/tex/eagle.xpm42
+NO assets/tex/xpm42/bluestone.xpm42
+WE assets/tex/xpm42/redbrick.xpm42
+SO assets/tex/xpm42/greystone.xpm42
+EA assets/tex/xpm42/wood.xpm42
 
 C 0,128,255
 F 102,51,0

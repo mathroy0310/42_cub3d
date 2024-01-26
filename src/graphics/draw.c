@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:01:36 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/25 20:36:42 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/26 05:20:02 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,18 @@ int		get_texture_x(t_ray ray);
 int		get_rgba(int r, int g, int b, int a);
 void	darken_color(uint32_t *color, double amount);
 
-t_color	get_pixel_color(mlx_texture_t *tex, int tx, int ty, int *pixel_count)
+t_color	get_pixel_color(mlx_texture_t *tex, int tx, int ty)
 {
-	t_color	color;
+	uint8_t		*dst;
+	int			a;
+	t_vect3i	color;
 
-	(void)tx;
-	(void)ty;
-	(void)pixel_count;
-	(void)tex;
-	//printf("tx %d, ty %d\n", tx, ty);
-	color = MINI_COLOR_DARKWALL;
-	if (tx % 2)
-		color = MINI_COLOR_WALL;
-	// color = get_rgba(tex->pixels[*pixel_count], tex->pixels[*pixel_count + 1],
-	// 		tex->pixels[*pixel_count + 2], tex->pixels[*pixel_count + 3]);
-	// *pixel_count += 4;
-	//printf("0x%X\n pixel nb: %d \n", color, *pixel_count / 256);
-	return (color);
+	dst = tex->pixels + 4 * (ty * tex->width + tx);
+	color.r = dst[0];
+	color.g = dst[1];
+	color.b = dst[2];
+	a = dst[3];
+	return (get_rgba(color.r, color.g, color.b, a));
 }
 
 void	draw_no_so_walls(t_game *game, t_ray *ray, int sx, int sy)
@@ -41,10 +36,8 @@ void	draw_no_so_walls(t_game *game, t_ray *ray, int sx, int sy)
 	int				y;
 	int				tx;
 	int				ty;
-	int				pixel_count;
 	mlx_texture_t	*tex;
 
-	pixel_count = 0;
 	if (ray->wall_dir == NO)
 		tex = game->textures[NO];
 	else
@@ -52,12 +45,15 @@ void	draw_no_so_walls(t_game *game, t_ray *ray, int sx, int sy)
 	y = -1;
 	while (++y < ray->draw_height)
 	{
-		tx = (int)((ray->wall_hit.x - floor(ray->wall_hit.x)) * (double)(tex->width));
-		ty = (int)(((double)y / ray->wall_height + (1.0 - (double)ray->draw_height / ray->wall_height) / 2.0) * tex->height);
+		tx = (int)((ray->wall_hit.x - floor(ray->wall_hit.x))
+				* (double)(tex->width));
+		ty = (int)(((double)y / ray->wall_height + (1.0
+						- (double)ray->draw_height / ray->wall_height) / 2.0)
+				* tex->height);
 		x = -1;
 		while (++x < (WIN_X / RAYS_NB))
 			mlx_put_pixel(game->img_screen, sx + x, sy + y, get_pixel_color(tex,
-					tx, ty, &pixel_count));
+					tx, ty));
 	}
 }
 
@@ -68,9 +64,7 @@ void	draw_ea_we_walls(t_game *game, t_ray *ray, int sx, int sy)
 	int				tx;
 	int				ty;
 	mlx_texture_t	*tex;
-	int				pixel_count;
 
-	pixel_count = 0;
 	if (ray->wall_dir == WE)
 		tex = game->textures[WE];
 	else
@@ -78,13 +72,15 @@ void	draw_ea_we_walls(t_game *game, t_ray *ray, int sx, int sy)
 	y = -1;
 	while (++y < ray->draw_height)
 	{
-		tx = (int)((ray->wall_hit.y - floor(ray->wall_hit.y)) * (double)(tex->width));
-		ty = (int)(y / ray->draw_height) + (1.0 - (double)ray->draw_height
-				/ ray->wall_height) / 2.0 * tex->height;
+		tx = (int)((ray->wall_hit.y - floor(ray->wall_hit.y))
+				* (double)(tex->width));
+		ty = (int)(((double)y / ray->wall_height + (1.0
+						- (double)ray->draw_height / ray->wall_height) / 2.0)
+				* tex->height);
 		x = -1;
 		while (++x < (WIN_X / RAYS_NB))
 			mlx_put_pixel(game->img_screen, sx + x, sy + y, get_pixel_color(tex,
-					tx, ty, &pixel_count));
+					tx, ty));
 	}
 }
 
@@ -112,7 +108,8 @@ void	draw_screen(t_game *game, t_ray *rays)
 		if (rays[i].draw_height > WIN_Y)
 			rays[i].draw_height = WIN_Y;
 		y = -1;
-		while (++y < (WIN_Y - rays[i].draw_height) / 2)
+		int wall_start_y = round((WIN_Y - rays[i].draw_height) / 2.0);
+		while (++y < wall_start_y)
 		{
 			x = i * (WIN_X / RAYS_NB) - 1;
 			while (++x < (i + 1) * (WIN_X / RAYS_NB))

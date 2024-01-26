@@ -1,10 +1,10 @@
-NO assets/tex/eagle.xpm
-SO assets/tex/eagle.xpm
-WE assets/tex/eagle.xpm
-EA assets/tex/eagle.xpm
+NO assets/tex/png/Matrix.png
+WE assets/tex/png/Matrix.png
+SO assets/tex/png/Matrix.png
+EA assets/tex/png/Matrix.png
 
-C 27,38,59
-F 65,90,119
+C 0,0,0
+F 0,0,0
 
 111111111111111111111
 101000001000000000001
