@@ -35,10 +35,10 @@ int get_texture_x(t_ray ray) {
     wall_x -= floor(wall_x);
 
     // Scale the position to the texture size
-    int tex_x = (int)(wall_x * (double)IMG_SIZE);
+    int tex_x = (int)(wall_x * (double)IMG_SIZE / 2);
 
-    // Ensure the texture wraps correctly
-    tex_x = tex_x % IMG_SIZE;
+    // // Ensure the texture wraps correctly
+    // tex_x = tex_x % IMG_SIZE;
 
     return tex_x;
 }
