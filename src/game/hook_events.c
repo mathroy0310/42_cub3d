@@ -183,8 +183,6 @@ void draw_walls(t_game *game, t_ray *rays)
 		rays[i].wall_dist *= cos(game->p.dir - rays[i].angle_abs);
 		rays[i].wall_height = (int32_t)(WIN_Y / rays[i].wall_dist);
 		rays[i].draw_height = rays[i].wall_height;
-		if (rays[i].draw_height > WIN_Y)
-			rays[i].draw_height = WIN_Y;
 
 		int top_wall = (WIN_Y - rays[i].draw_height) / 2;
 		int bottom_wall = top_wall + rays[i].draw_height;
@@ -215,10 +213,10 @@ void draw_walls(t_game *game, t_ray *rays)
 					{
 						//unsigned int line_length = game->xpm[NO]->texture.bytes_per_pixel * IMG_SIZE;
 						t_vect3 color_vect;
-						color_vect.r = game->xpm[NO]->texture.pixels[((texture_y / 3) * IMG_SIZE * 2 + (texture_x ) * (game->xpm[NO]->texture.bytes_per_pixel))];
-						color_vect.g = game->xpm[NO]->texture.pixels[((texture_y / 3) * IMG_SIZE * 2 + (texture_x ) * (game->xpm[NO]->texture.bytes_per_pixel) + 1)];
-						color_vect.b = game->xpm[NO]->texture.pixels[((texture_y / 3) * IMG_SIZE * 2 + (texture_x ) * (game->xpm[NO]->texture.bytes_per_pixel) + 2)];
-						int alpha = game->xpm[NO]->texture.pixels[((texture_y / 3) * IMG_SIZE * 2 + (texture_x ) * (game->xpm[NO]->texture.bytes_per_pixel) + 3)];
+						color_vect.r = game->xpm[NO]->texture.pixels[((texture_y / 3) * IMG_SIZE * 2 + (texture_x * 2) * (game->xpm[NO]->texture.bytes_per_pixel))];
+						color_vect.g = game->xpm[NO]->texture.pixels[((texture_y / 3) * IMG_SIZE * 2 + (texture_x * 2) * (game->xpm[NO]->texture.bytes_per_pixel) + 1)];
+						color_vect.b = game->xpm[NO]->texture.pixels[((texture_y / 3) * IMG_SIZE * 2 + (texture_x * 2) * (game->xpm[NO]->texture.bytes_per_pixel) + 2)];
+						int alpha = game->xpm[NO]->texture.pixels[((texture_y / 3) * IMG_SIZE * 2 + (texture_x * 2) * (game->xpm[NO]->texture.bytes_per_pixel) + 3)];
 						color = get_rgba(color_vect.r, color_vect.g, color_vect.b, alpha);
 					}
 					else if (rays[i].wall_dir == SO)
