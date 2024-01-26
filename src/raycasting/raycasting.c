@@ -3,42 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 18:35:37 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/18 11:48:11 by rmarceau         ###   ########.fr       */
+/*   Updated: 2024/01/26 05:49:10 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	get_line_equation(t_vect2d *pt, double angle, t_vect3d *line)
-{
-	if (cos(angle) == 0.0)
-	{
-		line->x = 1.0;
-		line->y = 0.0;
-		line->z = -pt->x;
-		return ;
-	}
-	line->x = tan(angle);
-	line->y = -1.0;
-	line->z = pt->y - line->x * pt->x;
-}
-
-static double	distance_points(t_vect2d *p1, t_vect2d *p2)
-{
-	return (sqrt(pow(p1->x - p2->x, 2) + pow(p1->y - p2->y, 2)));
-}
-
-static double	get_intersect(t_vect3d *line, double value, bool is_h)
-{
-	if ((is_h && line->x == 0.0) || (!is_h && line->y == 0.0))
-		return (INFINITY);
-	if (is_h)
-		return ((line->z + line->y * value) / (-line->x));
-	return ((line->z + line->x * value) / (-line->y));
-}
+double			distance_points(t_vect2d *p1, t_vect2d *p2);
+double			get_intersect(t_vect3d *line, double value, bool is_h);
+void			get_line_equation(t_vect2d *pt, double angle, t_vect3d *line);
 
 static double	get_min_dist_h(t_ray *ray, t_game *game, t_vect3d *line,
 		t_vect2d *end)

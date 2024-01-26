@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:15:26 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/26 05:44:21 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/26 05:50:22 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void					debug_print_msg(char *msg);
 void					debug_print_number(char *msg, int format, int arg,
 							double arg2);
 void					debug_print_ray(t_ray *ray, int i);
-void					debug_print_map(t_game *game);
 void					debug_print_colors(char *cat, t_vect3i color);
 
 

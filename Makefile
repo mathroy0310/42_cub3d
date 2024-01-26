@@ -6,7 +6,7 @@
 #    By: maroy <maroy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/21 16:01:23 by maroy             #+#    #+#              #
-#    Updated: 2024/01/24 19:29:16 by maroy            ###   ########.fr        #
+#    Updated: 2024/01/26 05:49:28 by maroy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ SRCS_MINIMAP = 	minimap.c \
 				minimap_utils.c \
 
 SRCS_RAYCASTING = raycasting.c \
+				  raycasting_utils.c \
 				
 
 SRCS_GRAPHICS =	draw.c \

@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 01:41:59 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/26 05:43:08 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/26 05:50:25 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,6 @@ char	*init_game(t_cub_file *cub, t_game *game)
 	if (((uint32_t)(game->map_w * MINISIDE) < WIN_X) && ((uint32_t)(game->map_h
 				* MINISIDE) < WIN_Y))
 		game->is_minimap = true;
-	debug_print_map(game);
 	set_player_initial_pos(game);
 	return (init_graphics(cub, game));
 }

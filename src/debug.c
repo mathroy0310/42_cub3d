@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 02:51:54 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/24 14:43:22 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/26 05:50:16 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,43 +69,5 @@ void	debug_print_colors(char *cat, t_vect3i color)
 					color.g,
 					color.b);
 	printf(ANSI_COLOR_RESET "\n");
-	}
-}
-
-void	debug_print_map(t_game *game)
-{
-	int	i;
-	int	j;
-
-	if (DEBUG_MODE == true)
-	{
-		// DEBUG PRINT MAP WITH COLORS
-		i = 0;
-		j = 0;
-		debug_print_number("map_w", 'd', game->map_w, 0);
-		debug_print_number("map_h", 'd',game->map_h, 0);
-		while (i < game->map_h)
-		{
-			j = 0;
-			while (j < game->map_w)
-			{
-				if (game->map[i][j] == '1')
-					printf(ANSI_BG_COLOR_RED ANSI_COLOR_BRIGHT_RED "%c" ANSI_COLOR_RESET,
-						game->map[i][j]);
-				else if (game->map[i][j] == '0')
-					printf(ANSI_BG_COLOR_GREEN ANSI_COLOR_BRIGHT_GREEN "%c" ANSI_COLOR_RESET,
-						game->map[i][j]);
-				else if (game->map[i][j] == 'E' || game->map[i][j] == 'W'
-					|| game->map[i][j] == 'S' || game->map[i][j] == 'N')
-					printf(ANSI_BG_COLOR_BLUE ANSI_COLOR_BLACK "%c" ANSI_COLOR_RESET,
-						game->map[i][j]);
-				else
-					printf(ANSI_BG_COLOR_YELLOW ANSI_COLOR_BRIGHT_YELLOW "%c" ANSI_COLOR_RESET,
-						'X');
-				j++;
-			}
-			putchar((int)'\n');
-			i++;
-		}
 	}
 }
