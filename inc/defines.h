@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:19:55 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/24 19:34:21 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/25 20:35:47 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@
 
 /*	==== PLAYER ==== */
 
-# define PLAYER_MOV_SPEED 0.025
-# define PLAYER_ROT_SPEED 0.015
+# define PLAYER_MOV_SPEED 0.06
+# define PLAYER_ROT_SPEED 0.04
 
 // in radians (0.0 to 2.0)
 # define PLAYER_FOV 1.2

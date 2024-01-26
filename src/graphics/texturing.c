@@ -9,7 +9,7 @@ char *load_textures(t_cub_file *cub, t_game *game)
 	i = -1;
 	while (++i < NONE)
 	{
-		if (ft_strequal( ".xmp42",ft_strrchr(cub->tex_path[i], '.')))
+		if (check_file_ext(cub->tex_path[i], ".xpm42"))
 		{
 			xpm[i] = mlx_load_xpm42(cub->tex_path[i]);
 			if (!xpm[i])
@@ -22,8 +22,8 @@ char *load_textures(t_cub_file *cub, t_game *game)
 			if (!game->textures[i])
 				return (TEX_LOAD);
 		}
-
 	}
+
 	return (NULL);
 }
 

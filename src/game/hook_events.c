@@ -72,6 +72,7 @@ void	my_loop(void *param)
 	static t_ray rays[RAYS_NB];
 	t_game *game;
 
+
 	game = param;
 	if (!is_player_moving(&game->p))
 		return ;

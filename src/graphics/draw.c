@@ -6,43 +6,94 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:01:36 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/24 19:50:22 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/25 20:36:42 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int			get_texture_x(t_ray ray);
-int			get_rgba(int r, int g, int b, int a);
-void		darken_color(uint32_t *color, double amount);
+int		get_texture_x(t_ray ray);
+int		get_rgba(int r, int g, int b, int a);
+void	darken_color(uint32_t *color, double amount);
 
-static void	draw_walls(t_game *game, t_ray *ray, int startx, int starty)
+t_color	get_pixel_color(mlx_texture_t *tex, int tx, int ty, int *pixel_count)
 {
-	int	y;
-	int x;
+	t_color	color;
 
-	(void)game;
-	(void)startx;
-	(void)starty;
+	(void)tx;
+	(void)ty;
+	(void)pixel_count;
+	(void)tex;
+	//printf("tx %d, ty %d\n", tx, ty);
+	color = MINI_COLOR_DARKWALL;
+	if (tx % 2)
+		color = MINI_COLOR_WALL;
+	// color = get_rgba(tex->pixels[*pixel_count], tex->pixels[*pixel_count + 1],
+	// 		tex->pixels[*pixel_count + 2], tex->pixels[*pixel_count + 3]);
+	// *pixel_count += 4;
+	//printf("0x%X\n pixel nb: %d \n", color, *pixel_count / 256);
+	return (color);
+}
+
+void	draw_no_so_walls(t_game *game, t_ray *ray, int sx, int sy)
+{
+	int				x;
+	int				y;
+	int				tx;
+	int				ty;
+	int				pixel_count;
+	mlx_texture_t	*tex;
+
+	pixel_count = 0;
 	if (ray->wall_dir == NO)
+		tex = game->textures[NO];
+	else
+		tex = game->textures[SO];
+	y = -1;
+	while (++y < ray->draw_height)
 	{
-		// draw_no_so_wall();
-		y = -1;
-		while (++y < ray->draw_height)
-		{
-			x = -1;
-			int texture_x = (ray->wall_hit.x - floor(ray->wall_hit.x) * (game->textures[NO]->width));
-			int texture_y = (y - (WIN_Y - ray->draw_height) / 2) * ((float)IMG_SIZE / ray->draw_height);
-			printf(" textrue x %d\n", texture_x);
-			printf(" textrue y %d\n", texture_y);
-			// while (++x < (WIN_X / RAYS_NB))
-			// 	mlx_put_pixel(game->img_screen, starty + y, startx + x, get_color(game->textures[NO], texture_x, texture_y));
-		}
-		return ;
+		tx = (int)((ray->wall_hit.x - floor(ray->wall_hit.x)) * (double)(tex->width));
+		ty = (int)(((double)y / ray->wall_height + (1.0 - (double)ray->draw_height / ray->wall_height) / 2.0) * tex->height);
+		x = -1;
+		while (++x < (WIN_X / RAYS_NB))
+			mlx_put_pixel(game->img_screen, sx + x, sy + y, get_pixel_color(tex,
+					tx, ty, &pixel_count));
 	}
-	else if (ray->wall_dir == WE || ray->wall_dir == EA || ray->wall_dir == SO)
-		// draw_we_ea_wall();
-		return ;
+}
+
+void	draw_ea_we_walls(t_game *game, t_ray *ray, int sx, int sy)
+{
+	int				x;
+	int				y;
+	int				tx;
+	int				ty;
+	mlx_texture_t	*tex;
+	int				pixel_count;
+
+	pixel_count = 0;
+	if (ray->wall_dir == WE)
+		tex = game->textures[WE];
+	else
+		tex = game->textures[EA];
+	y = -1;
+	while (++y < ray->draw_height)
+	{
+		tx = (int)((ray->wall_hit.y - floor(ray->wall_hit.y)) * (double)(tex->width));
+		ty = (int)(y / ray->draw_height) + (1.0 - (double)ray->draw_height
+				/ ray->wall_height) / 2.0 * tex->height;
+		x = -1;
+		while (++x < (WIN_X / RAYS_NB))
+			mlx_put_pixel(game->img_screen, sx + x, sy + y, get_pixel_color(tex,
+					tx, ty, &pixel_count));
+	}
+}
+
+void	draw_walls(t_game *game, t_ray *ray, int startx, int starty)
+{
+	if (ray->wall_dir == NO || ray->wall_dir == SO)
+		draw_no_so_walls(game, ray, startx, starty);
+	else if (ray->wall_dir == WE || ray->wall_dir == EA)
+		draw_ea_we_walls(game, ray, startx, starty);
 }
 
 void	draw_screen(t_game *game, t_ray *rays)
@@ -63,7 +114,7 @@ void	draw_screen(t_game *game, t_ray *rays)
 		y = -1;
 		while (++y < (WIN_Y - rays[i].draw_height) / 2)
 		{
-			x = i * ((WIN_X / RAYS_NB)) - 1;
+			x = i * (WIN_X / RAYS_NB) - 1;
 			while (++x < (i + 1) * (WIN_X / RAYS_NB))
 			{
 				color = game->color_c;
