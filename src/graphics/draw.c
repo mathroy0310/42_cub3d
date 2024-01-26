@@ -6,28 +6,22 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:01:36 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/26 05:20:02 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/26 05:43:45 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 int		get_texture_x(t_ray ray);
-int		get_rgba(int r, int g, int b, int a);
+t_color	get_rgba(int r, int g, int b, int a);
 void	darken_color(uint32_t *color, double amount);
 
 t_color	get_pixel_color(mlx_texture_t *tex, int tx, int ty)
 {
 	uint8_t		*dst;
-	int			a;
-	t_vect3i	color;
-
+	
 	dst = tex->pixels + 4 * (ty * tex->width + tx);
-	color.r = dst[0];
-	color.g = dst[1];
-	color.b = dst[2];
-	a = dst[3];
-	return (get_rgba(color.r, color.g, color.b, a));
+	return (get_rgba(dst[0], dst[1], dst[2], dst[3]));
 }
 
 void	draw_no_so_walls(t_game *game, t_ray *ray, int sx, int sy)

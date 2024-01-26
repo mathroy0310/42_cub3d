@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 19:25:53 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/24 13:41:03 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/26 05:39:08 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,10 +105,7 @@ void	draw_minimap(t_game *game, t_ray *rays)
 	int start_y;
 	int start_x;
 	if (!game->is_minimap)
-	{
-		printf("allo\n");
 		return ;
-	}
 	if (DEBUG_MODE)
 		printf("DEBUG 🐞: drawing_minimap\n");
 	shape.x = 0;

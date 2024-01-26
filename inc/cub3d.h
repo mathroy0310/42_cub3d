@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:15:26 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/24 14:43:06 by maroy            ###   ########.fr       */
+/*   Updated: 2024/01/26 05:44:21 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # include "parsing.h"
 
 
-int						get_rgba(int r, int g, int b, int a);
+t_color						get_rgba(int r, int g, int b, int a);
 void					draw_minimap(t_game *game, t_ray *rays);
 
 void					my_keyhook(mlx_key_data_t keydata, void *param);
