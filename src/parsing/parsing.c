@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:28:24 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/24 18:50:20 by maroy            ###   ########.fr       */
+/*   Updated: 2024/02/09 22:37:18 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	init_cub_file_data(t_cub_file *cub)
 {
-	int i;
-	
+	int	i;
+
 	i = -1;
 	while (++i < NONE)
 		cub->tex_path[i] = NULL;
@@ -30,16 +30,16 @@ void	init_cub_file_data(t_cub_file *cub)
 
 void	free_cub_data(t_cub_file *cub)
 {
+	int	i;
+
 	if (!cub)
 		return ;
-	int i;
-	
 	i = -1;
 	while (++i < NONE)
 	{
 		if (cub->tex_path[i])
 			free(cub->tex_path[i]);
-	}	
+	}
 	ft_lstclear(&cub->raw_map, free);
 }
 
@@ -97,6 +97,7 @@ char	*parse_cub_file(t_cub_file *cub_file, int fd)
 {
 	char	*line;
 	char	*error;
+	int		i;
 
 	while (true)
 	{
@@ -108,20 +109,17 @@ char	*parse_cub_file(t_cub_file *cub_file, int fd)
 		if (error)
 			return (error);
 	}
-	
-	int i;
-	
 	i = -1;
 	while (++i < NONE)
 	{
-		if (!(check_file_ext(cub_file->tex_path[i], ".xpm42") || check_file_ext(cub_file->tex_path[i], ".png")))
+		if (!(check_file_ext(cub_file->tex_path[i], ".xpm42")
+				|| check_file_ext(cub_file->tex_path[i], ".png")))
 			error = PARSER_XPM_EXT;
-		else if(!can_read_file(cub_file->tex_path[i]))
+		else if (!can_read_file(cub_file->tex_path[i]))
 			error = PARSER_XPM_OPN;
 		if (error)
-			break;
+			break ;
 	}
-	
 	if (!error)
 		error = check_cub_map(make_char_map(cub_file->raw_map));
 	if (error)

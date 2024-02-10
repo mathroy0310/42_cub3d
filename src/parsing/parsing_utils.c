@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 18:12:41 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/24 18:46:22 by maroy            ###   ########.fr       */
+/*   Updated: 2024/02/09 22:59:16 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ static bool	ready_to_parse_map(t_cub_file *cub)
 	bool	textures_ready;
 	bool	colors_ready;
 
-	textures_ready = (cub->tex_path[NO] && cub->tex_path[SO] && cub->tex_path[WE]
-			&& cub->tex_path[EA]);
+	textures_ready = (cub->tex_path[NO] && cub->tex_path[SO]
+			&& cub->tex_path[WE] && cub->tex_path[EA]);
 	colors_ready = (cub->color_f.r >= 0 && cub->color_f.g >= 0
 			&& cub->color_f.b >= 0 && cub->color_c.r >= 0 && cub->color_c.g >= 0
 			&& cub->color_c.b >= 0);
@@ -35,7 +35,7 @@ char	*parse_cub_line_map(t_cub_file *cub, char *line)
 		return (PARSER_MAP_NOT_RDY);
 	i = -1;
 	while (line[++i])
-		if (!ft_strchr("01 NSWE", line[i]))
+		if (!ft_strchr("01 \tNSWE", line[i]))
 			return (PARSER_MAP_CHAR);
 	content = ft_strdup(line);
 	if (!content)
@@ -76,7 +76,7 @@ char	*parse_cub_line_texture(t_cub_file *cub, char *line)
 	t_direction	dir;
 
 	dir = NONE;
-	line = ft_skip_chars(line, ' ');
+	line = ft_skip_charset(line, " \t");
 	if (!ft_strncmp(line, "NO", 2) && !cub->tex_path[NO])
 		dir = NO;
 	else if (!ft_strncmp(line, "SO", 2) && !cub->tex_path[SO])
@@ -86,7 +86,7 @@ char	*parse_cub_line_texture(t_cub_file *cub, char *line)
 	else if (!ft_strncmp(line, "EA", 2) && !cub->tex_path[EA])
 		dir = EA;
 	line += 2;
-	line = ft_skip_chars(line, ' ');
+	line = ft_skip_charset(line, " \t");
 	if (*line == 0 || dir == NONE)
 		return (PARSER_TEXTURE_LINE);
 	if (dir == NO)
@@ -102,11 +102,11 @@ char	*parse_cub_line_texture(t_cub_file *cub, char *line)
 
 char	*parse_cub_line_color(t_cub_file *cub, char **tab)
 {
-	char **colors;
-	int i;
-	int comma;
+	char	**colors;
+	int		i;
+	int		comma;
 
-	if (!tab[1] || tab[2])
+	if (!tab[1])
 		return (PARSER_COLOR_LINE_ELEM);
 	i = -1;
 	comma = 0;
@@ -117,7 +117,7 @@ char	*parse_cub_line_color(t_cub_file *cub, char **tab)
 		else if (!ft_isdigit(tab[1][i]))
 			return (PARSER_COLOR_LINE_CHAR);
 	}
-	if (comma != 2 || ft_strlen(tab[1]) > 11)
+	if (comma != 2)
 		return (PARSER_COLOR_LINE_FMT);
 	colors = ft_split(tab[1], ',');
 	if (!colors)
