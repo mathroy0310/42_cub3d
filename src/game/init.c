@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 01:41:59 by maroy             #+#    #+#             */
-/*   Updated: 2024/02/12 15:26:37 by maroy            ###   ########.fr       */
+/*   Updated: 2024/02/12 15:46:29 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*init_graphics(t_cub_file *cub, t_game *game)
 			255);
 	if (load_textures(cub, game))
 		return (load_textures(cub, game));
-	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_DISABLED);
+	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_HIDDEN);
 	mlx_image_to_window(game->mlx, game->img_screen, 0, 0);
 	mlx_loop_hook(game->mlx, &my_loop, game);
 	mlx_key_hook(game->mlx, &my_keyhook, game);

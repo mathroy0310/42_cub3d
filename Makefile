@@ -6,14 +6,14 @@
 #    By: maroy <maroy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/21 16:01:23 by maroy             #+#    #+#              #
-#    Updated: 2024/02/12 14:58:02 by maroy            ###   ########.fr        #
+#    Updated: 2024/02/12 15:56:31 by maroy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= cub3D
 
 CC		= gcc
-CFLAGS	= -Wall -Wextra -Werror -I./inc -std=c99 -O3
+CFLAGS	= -Wall -Wextra -Werror -I./inc -std=c99 -O3 -g3
 ARGS	= assets/map/map_leak1.cub
 
 LIBFT_DIR = ./libs/libft
@@ -77,7 +77,7 @@ all: $(LIBFT) $(MLX) $(NAME)
 
 
 run: all
-	@./$(NAME) ./assets/map/map.cub
+	@./$(NAME) ./assets/map/small_map.cub
 
 $(LIBFT):
 	@echo "${BLUE}Installing Libft ... ${DARKGRAY}"; 

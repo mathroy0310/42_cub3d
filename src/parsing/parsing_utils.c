@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 18:12:41 by maroy             #+#    #+#             */
-/*   Updated: 2024/02/12 14:45:38 by maroy            ###   ########.fr       */
+/*   Updated: 2024/02/12 15:44:58 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,6 @@ char	*parse_cub_line_color(t_cub_file *cub, char **tab)
 	if (!colors)
 		return (MALLOC_COLLINE);
 	if (ft_tablen(colors) != 3)
-		return (PARSER_COLOR_LINE_ELEM);
+		return (ft_free_tab(colors), PARSER_COLOR_LINE_ELEM);
 	return (apply_colors(cub, tab[0], colors));
 }
