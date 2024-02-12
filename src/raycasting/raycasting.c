@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 18:35:37 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/26 05:49:10 by maroy            ###   ########.fr       */
+/*   Updated: 2024/02/12 14:45:34 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,22 +83,22 @@ void	calcul_ray(t_game *game, t_ray *ray)
 	{
 		is_no_or_we = game->p.pos.y < end_h.y;
 		ray->wall_dist = min_dist.y;
-		ray->wall_dir = (is_no_or_we)*NO + (!is_no_or_we) * SO;
+		ray->wall_dir = (is_no_or_we) * NO + (!is_no_or_we) * SO;
 		ft_memcpy(&ray->wall_hit, &end_h, sizeof(t_vect2d));
 	}
 	else
 	{
 		is_no_or_we = game->p.pos.x < end_w.x;
 		ray->wall_dist = min_dist.x;
-		ray->wall_dir = (is_no_or_we)*WE + (!is_no_or_we) * EA;
+		ray->wall_dir = (is_no_or_we) * WE + (!is_no_or_we) * EA;
 		ft_memcpy(&ray->wall_hit, &end_w, sizeof(t_vect2d));
 	}
 }
 
 void	ray_casting(t_game *game, t_ray *rays)
 {
-	static bool is_first_init = false;
-	int i;
+	static bool	is_first_init = false;
+	int			i;
 
 	i = -1;
 	if (!is_first_init)
@@ -120,6 +120,5 @@ void	ray_casting(t_game *game, t_ray *rays)
 	{
 		rays[i].angle_abs = game->p.dir + rays[i].angle_rel;
 		calcul_ray(game, &rays[i]);
-		debug_print_ray(&rays[i], i);
 	}
 }

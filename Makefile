@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+         #
+#    By: maroy <maroy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/21 16:01:23 by maroy             #+#    #+#              #
-#    Updated: 2024/01/26 17:09:02 by rmarceau         ###   ########.fr        #
+#    Updated: 2024/02/12 14:58:02 by maroy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= cub3d
+NAME	= cub3D
 
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror -I./inc -std=c99 -O3
@@ -21,16 +21,9 @@ LIBFT = $(LIBFT_DIR)/libft.a
 CFLAGS += -I$(LIBFT_DIR)/inc -L$(LIBFT_DIR) -lft
 
 LIBFT	= ./libs/libft/libft.a
-# ifeq ($(shell uname), Linux)
-# 	MLX		= ./libs/minilibx-linux/libmlx.a
-# else ifeq ($(shell uname), Darwin)
-# 	MLX		= ./libs/minilibx-mac-osx/libmlx.a
-# else
-# 	@echo "${RED}Error: MLX is not available on your system. 🚫${DEFAULT}"
-# endif
 MLX = ./libs/MLX42/build/libmlx42.a
 
-SRC_MAIN_DIR		= src
+SRC_MAIN_DIR		=	src
 SRC_PARSING_DIR 	= 	$(SRC_MAIN_DIR)/parsing
 SRC_GAME_DIR		=	$(SRC_MAIN_DIR)/game
 SRC_MINIMAP_DIR		=	$(SRC_MAIN_DIR)/minimap
@@ -38,13 +31,14 @@ SRCS_RAYCASTING_DIR =	$(SRC_MAIN_DIR)/raycasting
 SRC_GRAPHICS_DIR	=	$(SRC_MAIN_DIR)/graphics
 
 SRCS_MAIN	=	main.c \
-				debug.c
 
 SRCS_PARSING =  valid.c \
+				valid_utils.c \
 				parsing.c \
 				parsing_utils.c \
 
 SRCS_GAME 	=	init.c \
+				init_utils.c \
 				player_movement.c \
 				hook_events.c \
 				
@@ -57,6 +51,7 @@ SRCS_RAYCASTING = raycasting.c \
 				
 
 SRCS_GRAPHICS =	draw.c \
+				draw_walls.c \
 				draw_utils.c \
   				texturing.c \
 
@@ -80,8 +75,9 @@ bin/%.o: $(SRC)/%.c
 
 all: $(LIBFT) $(MLX) $(NAME)
 
-debug: CFLAGS += -DDEBUG_MODE=1 -g3 -fsanitize=address
-debug: re
+
+run: all
+	@./$(NAME) ./assets/map/map.cub
 
 $(LIBFT):
 	@echo "${BLUE}Installing Libft ... ${DARKGRAY}"; 
@@ -135,6 +131,15 @@ leaks: all
 	@echo "${YELLOW}Running leaks...${DEFAULT}"
 	@leaks --atExit -- ./${NAME} ${ARGS}
 
+norm		:
+	@echo "Checking norminette output..."
+	@if norminette ./inc $(SRC) $(LIBFT_DIR) | grep -vq "OK!$$"; then \
+        echo "$(RED)Not all lines end with 'OK!'$(DEFAULT)"; \
+		norminette ./inc $(SRC) $(LIBFT_DIR) | grep -v "OK!$$"; \
+	else \
+        echo "$(GREEN)All lines end with 'OK!'$(DEFAULT)"; \
+	fi
+
 #--- COLORS ---#
 
 RED      = \033[1;31m
@@ -143,3 +148,5 @@ BLUE     = \033[1;34m
 YELLOW   = \033[1;33m
 DARKGRAY = \033[1;30m
 DEFAULT  = \033[1;30m
+
+.PHONY		:	all clean fclean re norm leaks lclean run

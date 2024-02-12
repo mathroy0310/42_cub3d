@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:40:08 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/26 17:09:59 by rmarceau         ###   ########.fr       */
+/*   Updated: 2024/02/12 14:38:10 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,6 @@ void	launch_parser(char *filename, t_cub_file *cub)
 		print_error_then_exit(filename, error);
 }
 
-bool	check_file_ext(char *filename, char *ext)
-{
-	if (!filename || !ext)
-		return (false);
-	if (!ft_strequal(ext, ft_strrchr(filename, '.')))
-		return (false);
-	return (true);
-}
-
 char	*check_cub_map(char **map)
 {
 	int		size;
@@ -41,7 +32,7 @@ char	*check_cub_map(char **map)
 	int		i;
 
 	if (!map || !(*map))
-		return (ft_free_tab(map) ,CUBMAP_NULL);
+		return (ft_free_tab(map), CUBMAP_NULL);
 	size = 0;
 	while (map[size])
 		size++;

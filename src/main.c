@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:37:08 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/16 21:10:38 by maroy            ###   ########.fr       */
+/*   Updated: 2024/02/12 15:09:38 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	main(int argc, char *argv[])
 	t_game		game;
 	char		*error_msg;
 
-	debug_print_msg("DEBUG mode enabled 🐛");
 	first_arg_checks(argc, argv);
 	launch_parser(argv[1], &cub_file);
 	error_msg = init_game(&cub_file, &game);

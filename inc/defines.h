@@ -3,38 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:19:55 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/26 16:19:42 by rmarceau         ###   ########.fr       */
+/*   Updated: 2024/02/12 14:46:30 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEFINES_H
 # define DEFINES_H
 
-# ifndef DEBUG_MODE
-#  define DEBUG_MODE 0
-#  define MINISIDE 10
-#  define MINIPAD 16
-# else
-#  define MINISIDE 10
-#  define MINIPAD 32
-# endif
+# define MINISIDE 10
+# define MINIPAD 32
 
 /*	==== GLOBAL ==== */
 
 # define WIN_TITLE "cub3D"
 
-# define WIN_X 960
-# define WIN_Y 540
+# define WIN_X 1920
+# define WIN_Y 1080
 
-# define RAYS_NB 3000
+# define RAYS_NB 1920
 
-#if RAYS_NB > WIN_X
-# undef RAYS_NB
-# define RAYS_NB WIN_X
-#endif
+# if RAYS_NB > WIN_X
+#  undef RAYS_NB
+#  define RAYS_NB WIN_X
+# endif
 
 /*	==== PLAYER ==== */
 
@@ -46,11 +40,6 @@
 
 /*	==== TEXTURES ==== */
 # define IMG_SIZE 64
-
-# define TEXTURE_NO "./assets/tex/xpm42/mossy.xpm42"
-# define TEXTURE_SO "./assets/tex/xpm42/redbrick.xpm42"
-# define TEXTURE_WE "./assets/tex/xpm42/greystone.xpm42"
-# define TEXTURE_EA "./assets/tex/xpm42/wood.xpm42"
 
 /* === MINIMAP === */
 
@@ -64,14 +53,10 @@
 /*	==== RAYCASTING ==== */
 
 # ifndef M_PI
-# define M_PI 3.14159265358979323846
+#  define M_PI 3.14159265358979323846
 # endif
-# ifndef M_PI_2
-# define M_PI_2 (M_PI / 2)
-# endif
-# ifndef M_PI_PI
-# define M_PI_PI (M_PI + M_PI)
-# endif
+# define M_PI_2 1.57079632679
+# define M_PI_PI 6.28318530718
 
 # define ERR_PROMPT "ERROR ❌: "
 

@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 18:12:41 by maroy             #+#    #+#             */
-/*   Updated: 2024/02/09 22:59:16 by maroy            ###   ########.fr       */
+/*   Updated: 2024/02/12 14:45:38 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ static char	*apply_colors(t_cub_file *cub, char *cat, char **colors_tab)
 	color->r = ft_atoi(colors_tab[0]);
 	color->g = ft_atoi(colors_tab[1]);
 	color->b = ft_atoi(colors_tab[2]);
-	debug_print_colors(cat, *color);
 	ft_free_tab(colors_tab);
 	if (!ft_inrange(color->r, 0, 256) || !ft_inrange(color->g, 0, 256)
 		|| !ft_inrange(color->b, 0, 256))
@@ -106,7 +105,7 @@ char	*parse_cub_line_color(t_cub_file *cub, char **tab)
 	int		i;
 	int		comma;
 
-	if (!tab[1])
+	if (!tab[1] || tab[2])
 		return (PARSER_COLOR_LINE_ELEM);
 	i = -1;
 	comma = 0;
@@ -117,10 +116,12 @@ char	*parse_cub_line_color(t_cub_file *cub, char **tab)
 		else if (!ft_isdigit(tab[1][i]))
 			return (PARSER_COLOR_LINE_CHAR);
 	}
-	if (comma != 2)
+	if (comma != 2 || ft_strlen(tab[1]) > 11)
 		return (PARSER_COLOR_LINE_FMT);
 	colors = ft_split(tab[1], ',');
 	if (!colors)
 		return (MALLOC_COLLINE);
+	if (ft_tablen(colors) != 3)
+		return (PARSER_COLOR_LINE_ELEM);
 	return (apply_colors(cub, tab[0], colors));
 }

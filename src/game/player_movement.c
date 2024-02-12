@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 19:11:27 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/17 18:30:41 by maroy            ###   ########.fr       */
+/*   Updated: 2024/02/12 14:49:44 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	player_rotate(t_game *game, double angle)
 		game->p.dir = dir;
 }
 
-static bool can_player_move(t_game *game, double dx, double dy)
+static bool	can_player_move(t_game *game, double dx, double dy)
 {
 	double const	lim_wall = 0.05;
 	double			x;

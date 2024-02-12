@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   texturing.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/12 15:10:51 by maroy             #+#    #+#             */
+/*   Updated: 2024/02/12 15:10:52 by maroy            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-char *load_textures(t_cub_file *cub, t_game *game)
+char	*load_textures(t_cub_file *cub, t_game *game)
 {
-	xpm_t *xpm[NONE];
-
-	int i;
+	xpm_t	*xpm[NONE];
+	int		i;
 
 	i = -1;
 	while (++i < NONE)
@@ -23,16 +34,5 @@ char *load_textures(t_cub_file *cub, t_game *game)
 				return (TEX_LOAD);
 		}
 	}
-
 	return (NULL);
-}
-
-int get_texture_x(t_ray ray)
-{
-	int texture_x;
-	if (ray.wall_dir == NO || ray.wall_dir == SO)
-		texture_x = (int)(ray.wall_hit.x * IMG_SIZE) % IMG_SIZE;
-	else
-		texture_x = (int)(ray.wall_hit.y * IMG_SIZE) % IMG_SIZE;
-	return (texture_x);
 }

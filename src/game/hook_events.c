@@ -1,8 +1,17 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hook_events.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/12 14:50:35 by maroy             #+#    #+#             */
+/*   Updated: 2024/02/12 15:26:31 by maroy            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "cub3d.h"
 
-void				rect(mlx_image_t *img, t_shape shape, t_color color);
 void				ray_casting(t_game *game, t_ray *rays);
 
 static void	on_key_press(mlx_key_data_t keydata, t_game *game)
@@ -69,23 +78,13 @@ static inline bool	is_player_moving(t_player *p)
 
 void	my_loop(void *param)
 {
-	static t_ray rays[RAYS_NB];
-	t_game *game;
-
+	static t_ray	rays[RAYS_NB];
+	t_game			*game;
 
 	game = param;
 	if (!is_player_moving(&game->p))
 		return ;
 	update_player(game);
-	if (DEBUG_MODE)
-	{
-		printf(ANSI_COLOR_BRIGHT_BLUE "DEBUG 🐞: game->p.pos.y --> -={%lf }=-\n",
-			game->p.pos.y);
-		printf(ANSI_COLOR_BRIGHT_BLUE "DEBUG 🐞: game->p.pos.x --> -={%lf }=-\n",
-			game->p.pos.x);
-		printf(ANSI_COLOR_BRIGHT_BLUE "DEBUG 🐞: game->p.dir --> -={ %lf }=-\n",
-			game->p.dir);
-	}
 	mlx_delete_image(game->mlx, game->img_screen);
 	game->img_screen = mlx_new_image(game->mlx, WIN_X, WIN_Y);
 	ray_casting(game, rays);

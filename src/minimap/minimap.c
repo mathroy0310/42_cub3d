@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 19:25:53 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/26 05:39:08 by maroy            ###   ########.fr       */
+/*   Updated: 2024/02/12 14:45:31 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,12 @@ static void	draw_player_minimap(t_game *game, t_shape s, int sx, int sy)
 	s.height = s.width;
 	s.x = (uint32_t)(game->p.pos.y * MINISIDE + sx - s.width / 2);
 	s.y = (uint32_t)(game->p.pos.x * MINISIDE + sy - s.height / 2);
-	rect(game->img_screen, s, MINI_COLOR_PLAYER2);
+	circle(game->img_screen, s, MINI_COLOR_PLAYER2);
 	s.width = 6;
 	s.height = s.width;
 	s.x = (uint32_t)(game->p.pos.y * MINISIDE + sx - s.width / 2);
 	s.y = (uint32_t)(game->p.pos.x * MINISIDE + sy - s.height / 2);
-	rect(game->img_screen, s, MINI_COLOR_PLAYER);
+	circle(game->img_screen, s, MINI_COLOR_PLAYER);
 }
 
 void	draw_rays_minimap(t_game *game, t_ray *rays, int sx, int sy)
@@ -101,13 +101,12 @@ void	draw_rays_minimap(t_game *game, t_ray *rays, int sx, int sy)
 
 void	draw_minimap(t_game *game, t_ray *rays)
 {
-	t_shape shape;
-	int start_y;
-	int start_x;
+	t_shape	shape;
+	int		start_y;
+	int		start_x;
+
 	if (!game->is_minimap)
 		return ;
-	if (DEBUG_MODE)
-		printf("DEBUG 🐞: drawing_minimap\n");
 	shape.x = 0;
 	shape.width = MINISIDE;
 	shape.height = MINISIDE;

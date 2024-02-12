@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:28:24 by maroy             #+#    #+#             */
-/*   Updated: 2024/02/09 22:37:18 by maroy            ###   ########.fr       */
+/*   Updated: 2024/02/12 14:37:59 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	free_cub_data(t_cub_file *cub)
 	ft_lstclear(&cub->raw_map, free);
 }
 
-bool	is_str_in_tab(char *str, char **tab)
+static bool	is_str_in_tab(char *str, char **tab)
 {
 	if (!str || !tab)
 		return (false);
@@ -53,18 +53,6 @@ bool	is_str_in_tab(char *str, char **tab)
 			return (true);
 		tab++;
 	}
-	return (false);
-}
-
-bool	is_charset_in_str(char *str, char *charset)
-{
-	if (!str || !charset)
-		return (false);
-	if (*charset == 0)
-		return (true);
-	while (*charset)
-		if (ft_strchr(str, *(charset++)))
-			return (true);
 	return (false);
 }
 
@@ -86,7 +74,10 @@ static char	*parse_cub_line(t_cub_file *cub, char *line)
 	else if (**tab == '1')
 		error = parse_cub_line_map(cub, line);
 	else
+	{
+		printf("alo les gens commetn ca va \n");
 		error = PARSER_LINE_FMT;
+	}
 	if (error)
 		free_cub_data(cub);
 	ft_free_tab(tab);
@@ -97,7 +88,6 @@ char	*parse_cub_file(t_cub_file *cub_file, int fd)
 {
 	char	*line;
 	char	*error;
-	int		i;
 
 	while (true)
 	{
@@ -109,17 +99,7 @@ char	*parse_cub_file(t_cub_file *cub_file, int fd)
 		if (error)
 			return (error);
 	}
-	i = -1;
-	while (++i < NONE)
-	{
-		if (!(check_file_ext(cub_file->tex_path[i], ".xpm42")
-				|| check_file_ext(cub_file->tex_path[i], ".png")))
-			error = PARSER_XPM_EXT;
-		else if (!can_read_file(cub_file->tex_path[i]))
-			error = PARSER_XPM_OPN;
-		if (error)
-			break ;
-	}
+	error = is_valid_img_extension(cub_file);
 	if (!error)
 		error = check_cub_map(make_char_map(cub_file->raw_map));
 	if (error)

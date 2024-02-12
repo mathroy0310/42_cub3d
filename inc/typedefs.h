@@ -6,29 +6,29 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:38:45 by maroy             #+#    #+#             */
-/*   Updated: 2024/01/24 18:44:53 by maroy            ###   ########.fr       */
+/*   Updated: 2024/02/12 14:27:11 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TYPEDEFS_H
 # define TYPEDEFS_H
 
-# include <stdint.h>
-# include <stdbool.h>
-# include "ft_vect.h"
-# include "ft_list.h"
 # include "MLX42.h"
+# include "ft_list.h"
+# include "ft_vect.h"
+# include <stdbool.h>
+# include <stdint.h>
 
 typedef unsigned int	t_color;
 
- // PARSING
+// PARSING
 
 typedef struct s_vect3i
 {
-	int		r;
-	int		g;
-	int		b;
-}			t_vect3i;
+	int					r;
+	int					g;
+	int					b;
+}						t_vect3i;
 
 typedef enum e_direction
 {
@@ -41,14 +41,11 @@ typedef enum e_direction
 
 typedef struct s_cub_file
 {
-	char	*tex_path[NONE];
-	t_vect3i	color_c;
-	t_vect3i	color_f;
-	t_list	*raw_map;
-}			t_cub_file;
-
-
-
+	char				*tex_path[NONE];
+	t_vect3i			color_c;
+	t_vect3i			color_f;
+	t_list				*raw_map;
+}						t_cub_file;
 
 typedef struct s_shape
 {
@@ -96,4 +93,4 @@ typedef struct s_game
 	mlx_texture_t		*textures[NONE];
 }						t_game;
 
-#endif // 
+#endif //
