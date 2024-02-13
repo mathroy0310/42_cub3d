@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 18:12:41 by maroy             #+#    #+#             */
-/*   Updated: 2024/02/12 20:16:46 by maroy            ###   ########.fr       */
+/*   Updated: 2024/02/12 20:40:54 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,16 +89,8 @@ char	*parse_cub_line_texture(t_cub_file *cub, char *line)
 	tmp = ft_strtrim(line, " \t");
 	if (*tmp == 0 || dir == NONE)
 		return (PARSER_TEXTURE_LINE);
-	if (dir == NO)
-		cub->tex_path[NO] = ft_strdup(tmp);
-	else if (dir == SO)
-		cub->tex_path[SO] = ft_strdup(tmp);
-	else if (dir == WE)
-		cub->tex_path[WE] = ft_strdup(tmp);
-	else if (dir == EA)
-		cub->tex_path[EA] = ft_strdup(tmp);
-	free(tmp);
-	return (NULL);
+	cub->tex_path[dir] = ft_strdup(tmp);
+	return (free(tmp), NULL);
 }
 
 char	*parse_cub_line_color(t_cub_file *cub, char **tab)
