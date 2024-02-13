@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:40:08 by maroy             #+#    #+#             */
-/*   Updated: 2024/02/12 14:38:10 by maroy            ###   ########.fr       */
+/*   Updated: 2024/02/12 20:23:08 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,7 @@ char	*check_cub_map(char **map)
 
 	if (!map || !(*map))
 		return (ft_free_tab(map), CUBMAP_NULL);
-	size = 0;
-	while (map[size])
-		size++;
+	size = ft_tablen(map);
 	dir = 0;
 	i = -1;
 	while (++i < size)

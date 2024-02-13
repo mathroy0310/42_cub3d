@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 18:12:41 by maroy             #+#    #+#             */
-/*   Updated: 2024/02/12 15:44:58 by maroy            ###   ########.fr       */
+/*   Updated: 2024/02/12 20:16:46 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ static char	*apply_colors(t_cub_file *cub, char *cat, char **colors_tab)
 char	*parse_cub_line_texture(t_cub_file *cub, char *line)
 {
 	t_direction	dir;
+	char		*tmp;
 
 	dir = NONE;
 	line = ft_skip_charset(line, " \t");
@@ -85,17 +86,18 @@ char	*parse_cub_line_texture(t_cub_file *cub, char *line)
 	else if (!ft_strncmp(line, "EA", 2) && !cub->tex_path[EA])
 		dir = EA;
 	line += 2;
-	line = ft_skip_charset(line, " \t");
-	if (*line == 0 || dir == NONE)
+	tmp = ft_strtrim(line, " \t");
+	if (*tmp == 0 || dir == NONE)
 		return (PARSER_TEXTURE_LINE);
 	if (dir == NO)
-		cub->tex_path[NO] = ft_strdup(line);
+		cub->tex_path[NO] = ft_strdup(tmp);
 	else if (dir == SO)
-		cub->tex_path[SO] = ft_strdup(line);
+		cub->tex_path[SO] = ft_strdup(tmp);
 	else if (dir == WE)
-		cub->tex_path[WE] = ft_strdup(line);
+		cub->tex_path[WE] = ft_strdup(tmp);
 	else if (dir == EA)
-		cub->tex_path[EA] = ft_strdup(line);
+		cub->tex_path[EA] = ft_strdup(tmp);
+	free(tmp);
 	return (NULL);
 }
 

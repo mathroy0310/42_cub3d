@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 13:24:23 by maroy             #+#    #+#             */
-/*   Updated: 2024/02/12 14:38:07 by maroy            ###   ########.fr       */
+/*   Updated: 2024/02/12 20:07:25 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,15 @@
 
 bool	check_file_ext(char *filename, char *ext)
 {
+	char	*file_ext;
+	char	*tmp;
+
+	tmp = ft_strtrim(filename, "\t ");
+	file_ext = ft_strrchr(tmp, '.');
+	free(tmp);
 	if (!filename || !ext)
 		return (false);
-	if (!ft_strequal(ext, ft_strrchr(filename, '.')))
+	if (!ft_strequal(ext, file_ext))
 		return (false);
 	return (true);
 }

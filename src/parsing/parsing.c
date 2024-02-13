@@ -6,7 +6,7 @@
 /*   By: maroy <maroy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:28:24 by maroy             #+#    #+#             */
-/*   Updated: 2024/02/12 14:37:59 by maroy            ###   ########.fr       */
+/*   Updated: 2024/02/12 20:06:53 by maroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,7 @@ static char	*parse_cub_line(t_cub_file *cub, char *line)
 	else if (**tab == '1')
 		error = parse_cub_line_map(cub, line);
 	else
-	{
-		printf("alo les gens commetn ca va \n");
 		error = PARSER_LINE_FMT;
-	}
 	if (error)
 		free_cub_data(cub);
 	ft_free_tab(tab);
